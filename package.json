@@ -1,6 +1,6 @@
 {
-  "name": "admin-territorio",
-  "version": "0.0.0",
+  "name": "metropolitana-adm",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
