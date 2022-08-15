@@ -1,0 +1,27 @@
+<app-navbar [show]="showNav"></app-navbar>
+<div class="container container-center" *ngIf="!solicitud">
+  <div class="row row-cols-1">
+    <div class="col center" style="text-align: center">
+      <h2>Ingrese su nombre</h2>
+    </div>
+    <div class="col center" style="text-align: center">
+      <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Escriba su nombre y apellido aquí..." />
+    </div>
+
+    <div class="card-container" *ngIf="nombre">
+      <div *ngFor="let uno of hermanos | searcher: nombre:'nombre'" (click)="seleccionarHermano(uno)">
+        <article class="card" [id]="uno.id">
+         <div> {{ uno.nombre }}</div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <footer class="btn-container" *ngIf="!solicitud">
+    <button class="btn-color"  *ngIf="nombre" [disabled]="!hermanoSeleccionado" (click)="solicitar()">Solicitar</button>
+  </footer>
+</div>
+
+
+<section *ngIf="solicitud">
+  <app-public-mi-territorio [territorio]="solicitud.territorio"></app-public-mi-territorio>
+</section>

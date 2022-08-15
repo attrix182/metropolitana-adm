@@ -1,0 +1,44 @@
+@import '../../../../styles.scss';
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card {
+    width: 80vw;
+    height: 10vh;
+    font-size: 1.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    text-align: center;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+    padding: 20px;
+    padding-left: 11%;
+    padding-right: 11%;
+}
+
+
+.box-loading{
+    padding-top: 20vh;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+
+  
+  .spinner-border {
+    height: 2.4em;
+    width: 2.4em;
+    font-size: 2.4em;
+    color: $color-primary !important;
+}

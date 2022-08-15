@@ -1,0 +1,39 @@
+
+<app-navbar [show]="showNav" [titulo]="filtro"></app-navbar>
+
+<div *ngIf="!territorioSeleccionado">
+<div class="box-loading" *ngIf="!loaded">
+  <div class="spinner-border text-success" role="status"></div>
+</div>
+
+<section *ngIf="loaded">
+  <div>
+    <div class="box-filtros">
+      <div class="btn-option">
+        <button class="btn btn-secondary" id="fijos" (click)="setFijos()">Fijos</button>
+      </div>
+      <div class="btn-option">
+        <button class="btn btn-secondary" id="celulares" (click)="setCelulares()">Celulares</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="searcher">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchParam" />
+    </div>
+  </div>
+
+  <div class="cards">
+    <section class="territorios">
+      <article *ngFor="let uno of territorios | searcher: searchParam:'id'">
+        <app-card-territorio [territorio]="uno" (click)="seleccionarTerritorio(uno)"></app-card-territorio>
+      </article>
+    </section>
+  </div>
+</section>
+</div>
+
+<section *ngIf="territorioSeleccionado">
+    <app-private-detalle-territorio [territorio]="territorioSeleccionado" (onBack)="showCards()"></app-private-detalle-territorio>
+</section>

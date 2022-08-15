@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<section class="form-alta mt-2">
+  <form [formGroup]="formGroup" class="card">
+    <h3 class="text-center">Alta de territorio</h3>
+
+    <div class="tipo-de-territorio mt-4">
+        <h5 class="text-center">Tipo de territorio</h5>
+        <div class="buttons">
+          <button class="btn btn-secondary btn-tipo" id="fijos" (click)="selectFijos()">Fijos</button>
+          <button class="btn btn-secondary btn-tipo" id="celulares" (click)="selectCelulares()">Celulares</button>
+        </div>
+      </div>
+    <div class="numero-territorio mt-4">
+      <label for="">Numero de territorio</label>
+      <input
+        formControlName="numero"
+        type="text"
+        placeholder="Ingrese numero de territorio..."
+        class="form-control"
+        [class]="isValidField('numero')"
+        (ngModelChange)="existeTerritorio()"
+      />
+      <span *ngIf="debeMostrarError('numero')" class="invalid-feedback">
+        {{ obtenerTextoError('numero') }}
+      </span>
+    </div>
+
+  
+
+    <div class="telefonos-box mt-4">
+      <h5 class="text-center mt-2">Numeros de telefono</h5>
+      <textarea
+        formControlName="numeros"
+        placeholder="Pegue los telefonos aqui.."
+        class="form-control"
+        cols="10"
+        rows="5"
+        [class]="isValidField('numeros')"
+      ></textarea>
+      <span *ngIf="debeMostrarError('numeros')" class="invalid-feedback">
+        {{ obtenerTextoError('numeros') }}
+      </span>
+    </div>
+
+    <button class="btn btn-success mt-3 mb-1" (click)="addTerritorio()" [disabled]="formGroup.invalid">Agregar</button>
+  </form>
+</section>

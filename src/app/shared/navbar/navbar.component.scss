@@ -1,0 +1,17 @@
+@import '../../../styles.scss';
+
+
+.nav-link {
+  font-size: 1.4em;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
+
+.nav-fill .nav-item {
+  text-align: start;
+  padding: 8px;
+}
+
+nav{
+  background-color: $color-primary !important;
+}
