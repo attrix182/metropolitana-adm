@@ -1,0 +1,19 @@
+<met-admin-navbar></met-admin-navbar>
+
+<div class="row">
+  <div class="col-2">
+    <met-admin-sidebar (changeSection)="handleSection()"></met-admin-sidebar>
+  </div>
+
+  <div class="col" [ngSwitch]="section">
+    <met-admin-dashboard *ngSwitchCase="'admin-dashboard'"></met-admin-dashboard>
+    <met-admin-hermanos *ngSwitchCase="'admin-hermanos'"></met-admin-hermanos>
+    <!--       
+      
+        <app-admin-products *ngSwitchCase="'admin-products'"></app-admin-products>
+        <app-admin-users *ngSwitchCase="'admin-users'"></app-admin-users> -->
+        <div *ngSwitchDefault="">Bienvenido, seleccione una opcion</div>
+  </div>
+
+
+</div>
