@@ -1,0 +1,32 @@
+.rounded{
+    border-radius: 20px !important;
+    box-shadow: 1px 1px 15px #8f8c8c;
+}
+
+input{
+    border-radius: 18px !important;
+}
+
+.botones-disponibilidad{
+    button{
+        color: white;
+        margin: 2px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .btn:focus, .btn.focus {
+        box-shadow: none !important;
+    }
+
+
+}
+
+.success {
+    background-color: #5cb85c;
+  }
+  
+  
+  .danger {
+    background-color: #df4759;
+  }

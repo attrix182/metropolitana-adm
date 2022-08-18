@@ -4,7 +4,7 @@ import { AdminPanelComponent } from './admin-panel.component';
 
 const routes: Routes = [
   {path:'', component: AdminPanelComponent},
-  {path:'**', redirectTo:'', pathMatch:'full'}
+
 ];
 
 @NgModule({

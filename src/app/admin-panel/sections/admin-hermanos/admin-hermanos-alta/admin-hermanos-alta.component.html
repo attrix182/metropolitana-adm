@@ -1,0 +1,136 @@
+<div class="container bg-white mt-4 p-4 rounded">
+  <se [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>Alta de hermano</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Apellido" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de nacimiento</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fechaNacimiento"
+            formControlName="fechaNacimiento"
+            placeholder="Fecha de nacimiento"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="fechaBautismo">Congregacion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fechaBautismo"
+            formControlName="congregacion"
+            placeholder="Congregacion"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="precursor">¿Sirve como precursor?</label>
+          <input type="checkbox" class="form-control" id="precursor" formControlName="precursor" />
+        </div>
+      </div>
+
+      <div class="col-md-6" >
+        <label for="disponibilidad">Disponibilidad</label>
+        <br />
+        <div class="botones-disponibilidad">
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="1"
+          (click)="agregarQuitarDia(1)"
+          [ngClass]="toco1 ? 'success' : 'danger'"
+        >
+          L
+        </button>
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="2"
+          (click)="agregarQuitarDia(2)"
+          [ngClass]="toco2 ? 'success' : 'danger'"
+        >
+            M
+        </button>
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="3"
+          (click)="agregarQuitarDia(3)"
+          [ngClass]="toco3 ? 'success' : 'danger'"
+        >
+            M
+        </button>
+
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="4"
+          (click)="agregarQuitarDia(4)"
+          [ngClass]="toco4 ? 'success' : 'danger'"
+        >
+            J
+        </button>
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="5"
+          (click)="agregarQuitarDia(5)"
+          [ngClass]="toco5 ? 'success' : 'danger'"
+        >
+            V
+        </button>
+
+        <button
+          class="btn btn-sm"
+          type="button"
+          id="6"
+          (click)="agregarQuitarDia(6)"
+          [ngClass]="toco6 ? 'success' : 'danger'"
+        >
+            S
+        </button>
+        <button
+        class="btn btn-sm"
+        type="button"
+        id="7"
+        (click)="agregarQuitarDia(7)"
+        [ngClass]="toco7 ? 'success' : 'danger'"
+      >
+          D
+      </button>
+    </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-center mt-4">
+        <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Guardar</button>
+      </div>
+    </div>
+  </se>
+</div>

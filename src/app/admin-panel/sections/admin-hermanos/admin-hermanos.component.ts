@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Dias, Hermano, Horarios } from '../../../models/hermano.model';
+import { Dias, DiasFinDeSemana, Hermano, Horarios } from '../../../models/hermano.model';
 @Component({
   selector: 'met-admin-hermanos',
   templateUrl: './admin-hermanos.component.html',
@@ -27,30 +27,16 @@ export class AdminHermanosComponent implements OnInit {
           dia: Dias.martes,
           horario: [Horarios.M]
         }
-      ]
-    };
-
-    let marta: Hermano = {
-      id: 1,
-      nombre: 'Marta',
-      apellido: 'Rodriguez',
-      fechaNacimiento: new Date('1987-05-11T00:00:00'),
-      congregacion: 'Villa luro',
-      precursor: false,
-      disponibilidad: [
+      ],
+      repeticionDiasPorMes: [
         {
-          dia: Dias.miercoles,
-          horario: [Horarios.M, Horarios.N]
-        },
-        {
-          dia: Dias.jueves,
-          horario: [Horarios.TD]
+          dia: DiasFinDeSemana.sabado,
+          veces: 2
         }
       ]
     };
 
     this.setEdad(juan);
-    this.setEdad(marta);
 
     this.listarDatos(juan);
   }

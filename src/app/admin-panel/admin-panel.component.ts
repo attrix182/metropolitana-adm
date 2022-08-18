@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss']
 })
-export class AdminPanelComponent {
+export class AdminPanelComponent{
   public section: string;
 
   constructor(private router: Router, private location: Location) {
@@ -17,7 +17,10 @@ export class AdminPanelComponent {
       this.handleSection();
     });
   }
+
+
   handleSection() {
     this.section = this.location.path().split('/')[1];
+    this.section = 'admin-hermanos'; //remover solo test
   }
 }
