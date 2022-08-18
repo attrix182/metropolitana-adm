@@ -1,10 +1,34 @@
 export interface Hermano {
-    id: number;
-    nombre: string;
-    apellido: string;
-    fechaNacimiento: Date;
-    congregacion:string;
-    edad?:string;
-    precursor:boolean;
-  //TODO disponibilidad
+  id: number;
+  nombre: string;
+  apellido: string;
+  fechaNacimiento: Date;
+  congregacion: string;
+  edad?: number;
+  precursor: boolean;
+  disponibilidad: Disponibilidad[];
+}
+
+export interface Disponibilidad {
+  dia: Dias;
+  horario: Horarios[];
+}
+
+export enum Horarios {
+  NP,
+  M,
+  MD,
+  T,
+  N,
+  TD
+}
+
+export enum Dias {
+  lunes,
+  martes,
+  miercoles,
+  jueves,
+  viernes,
+  sabado,
+  domingo
 }

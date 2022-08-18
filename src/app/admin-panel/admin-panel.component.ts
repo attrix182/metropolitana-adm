@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
+
 
 @Component({
   selector: 'app-admin-panel',
