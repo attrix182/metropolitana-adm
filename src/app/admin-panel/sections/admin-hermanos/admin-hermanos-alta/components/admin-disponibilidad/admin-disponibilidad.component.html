@@ -99,3 +99,17 @@
     </div>
   </div>
 </div>
+
+<div class="col-12" *ngIf="seleccionoSabado">
+  <div class="form-group">
+    <label for="precursor">Sabados por mes</label>
+    <input type="number" class="form-control" (change)="onSetDiasFinDeSemana()" [(ngModel)]="sabadosMes" placeholder="Sabados por mes"/>
+  </div>
+</div>
+
+<div class="col-12" *ngIf="seleccionoDomingo">
+  <div class="form-group">
+    <label for="precursor">Domingo por mes</label>
+    <input type="number" class="form-control" (change)="onSetDiasFinDeSemana()" [(ngModel)]="domingosMes" placeholder="Domingos por mes"/>
+  </div>
+</div>

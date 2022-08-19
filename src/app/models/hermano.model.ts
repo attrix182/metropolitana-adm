@@ -7,18 +7,16 @@ export interface Hermano {
   edad?: number;
   precursor: boolean;
   disponibilidad: Disponibilidad[];
-  repeticionDiasPorMes: DiasPorMes[]
   activo?:boolean;
 }
 
-export interface DiasPorMes{
-  dia: DiasFinDeSemana,
-  veces:number
-}
+
 
 export interface Disponibilidad {
   dia: Dias;
   horario: Horarios[];
+  sabadosPorMes?: number;
+  domingosPorMes?: number;
 }
 
 export enum Horarios {

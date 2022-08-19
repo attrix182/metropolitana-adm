@@ -24,16 +24,14 @@ export class AdminHermanosComponent implements OnInit {
           horario: [Horarios.M, Horarios.MD]
         },
         {
-          dia: Dias.martes,
-          horario: [Horarios.M]
-        }
+          dia: Dias.sabado,
+          horario: [Horarios.M],
+          sabadosPorMes: 2,
+        },
+     
       ],
-      repeticionDiasPorMes: [
-        {
-          dia: DiasFinDeSemana.sabado,
-          veces: 2
-        }
-      ]
+    
+      activo: true
     };
 
     this.setEdad(juan);
