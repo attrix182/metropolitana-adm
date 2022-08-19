@@ -12,15 +12,6 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminHermanosAltaComponent extends FormValidator implements OnInit {
   hermano: Hermano;
-  required: any;
-
-  toco1: boolean = false;
-  toco2: boolean = false;
-  toco3: boolean = false;
-  toco4: boolean = false;
-  toco5: boolean = false;
-  toco6: boolean = false;
-  toco7: boolean = false;
 
   constructor(private FB: FormBuilder, private alertSVC: AlertService, private storageSVC: StorageService) {
     super();

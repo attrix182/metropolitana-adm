@@ -1,37 +1,33 @@
 .success {
-    background-color: #5cb85c;
-  }
-  
-  
-  .danger {
-    background-color: #ef354a;
-  }
+  background-color: #5cb85c;
+}
 
+.danger {
+  background-color: #ef354a;
+}
 
-    button{
-        color: rgb(0, 0, 0);
-        margin: 2px;
-        height: 40px;
-        width: 40px;
-    }
+button {
+  color: rgb(0, 0, 0);
+  margin: 2px;
+  height: 40px;
+  width: 40px;
+}
 
-    .btn:focus, .btn.focus {
-        box-shadow: none !important;
-    }
+.btn:focus,
+.btn.focus {
+  box-shadow: none !important;
+}
 
-    .dias{
-        display : flex;
-        justify-content: between;
-    }
+.dias {
+  display: flex;
+  justify-content: between;
+}
 
-    .horarios{
-        display: flex;
-justify-content: flex-end;
+.horarios {
+  display: flex;
+  justify-content: flex-end;
+}
 
-    }
-
-
-    .semana{
-        display: flex;
- 
-    }
+.semana {
+  display: flex;
+}
