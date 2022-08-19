@@ -1,0 +1,86 @@
+<div class="dias">
+  <div *ngFor="let dia of dias">
+    <button class="btn btn-sm btn-danger btn-dia" [id]="dia" (click)="agregarQuitarDia(dia)" type="button">
+      {{ dia }}
+    </button>
+    <hr />
+  </div>
+</div>
+
+<div class="semana">
+    <div class="lunes">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 0" (click)="agregarQuitarHorario(horario, 0)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="martes">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 1" (click)="agregarQuitarHorario(horario, 1)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="miercoles">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 2" (click)="agregarQuitarHorario(horario, 2)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="jueves">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 3" (click)="agregarQuitarHorario(horario, 3)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="viernes">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 4" (click)="agregarQuitarHorario(horario, 4)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="sabado">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 5" (click)="agregarQuitarHorario(horario, 5)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+    <div class="domingo">
+        <div *ngFor="let horario of horarios" class="horarios">
+            <button class="btn btn-sm btn-horario btn-danger" [id]="horario + 6" (click)="agregarQuitarHorario(horario, 6)" type="button">
+              {{ horario }}
+            </button>
+          </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+<!-- <div *ngFor="let dia of ['L', 'M', 'M', 'J', 'V', 'S', 'D']">
+  <div class="dias">
+    <button class="btn btn-sm" type="button">
+      {{ dia }}
+    </button>
+  </div>
+
+  <div *ngFor="let dia of ['M', 'T', 'N', 'TD']" class="horarios">
+    <button class="btn btn-sm" type="button">
+      {{ dia }}
+    </button>
+  </div>
+</div> -->

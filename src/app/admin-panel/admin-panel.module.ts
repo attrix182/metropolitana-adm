@@ -8,6 +8,7 @@ import { AdminDashboardComponent } from './sections/admin-dashboard/admin-dashbo
 import { AdminHermanosComponent } from './sections/admin-hermanos/admin-hermanos.component';
 import { AdminHermanosAltaComponent } from './sections/admin-hermanos/admin-hermanos-alta/admin-hermanos-alta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminDisponibilidadComponent } from './sections/admin-hermanos/admin-hermanos-alta/components/admin-disponibilidad/admin-disponibilidad.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminNavbarComponent,
     AdminDashboardComponent,
     AdminHermanosComponent,
-    AdminHermanosAltaComponent
+    AdminHermanosAltaComponent,
+    AdminDisponibilidadComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule]
 })

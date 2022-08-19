@@ -30,38 +30,6 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
     this.initForm();
   }
 
-
-  agregarQuitarDia(unDia: number) {
-    switch (unDia) {
-      case 1:
-        this.toco1 = !this.toco1;
-        break;
-      case 2:
-        this.toco2 = !this.toco2;
-        break;
-      case 3:
-        this.toco3 = !this.toco3;
-        break;
-      case 4:
-        this.toco4 = !this.toco4;
-        break;
-      case 5:
-        this.toco5 = !this.toco5;
-        break;
-      case 6:
-        this.toco6 = !this.toco6;
-        break;
-        case 7:
-          this.toco7 = !this.toco7;
-          break;
-
-      default:
-        break;
-    }
-  }
-
-
-
   initForm() {
     this.formGroup = this.FB.group({
       nombre: ['', [Validators.required]],
