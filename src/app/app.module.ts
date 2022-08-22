@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,8 @@ import { AdminPanelModule } from './admin-panel/admin-panel.module';
     FormsModule,
     ReactiveFormsModule,
     AdminPanelModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

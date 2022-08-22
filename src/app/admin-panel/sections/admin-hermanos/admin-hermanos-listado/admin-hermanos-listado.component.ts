@@ -27,7 +27,7 @@ export class AdminHermanosListadoComponent implements OnInit {
       confirm = await this.alertSvc.confirmAlert();
       if (confirm) {
         this.storageSVC.Delete('hermanos', product.id).then(() => {
-          this.alertSvc.alertCenter('info', 'El producto ha sido eliminado');
+          this.alertSvc.alertCenter('info', 'El hermano ha sido eliminado');
         });
       }
     }
