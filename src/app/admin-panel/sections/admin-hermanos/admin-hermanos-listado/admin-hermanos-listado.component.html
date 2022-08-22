@@ -1,0 +1,42 @@
+<div class="container mt-5 prod" align="center">
+    <h2>Hermanos</h2>
+  
+    <input
+      [(ngModel)]="searchParam"
+      (ngModelChange)="hacerBusqueda()"
+      type="text"
+      placeholder="Buscador inteligente"
+      class="form-control mb-2"
+    />
+  
+    <table  class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Congregacion</th>
+          <th>Edad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="hermanos">
+        <tr *ngFor="let uno of hermanos">
+          <td>{{ uno.nombre }}</td>
+          <td>{{ uno.apellido }}</td>
+          <td>{{ uno.congregacion }}</td>
+          <td>{{ uno.edad }}</td>
+          <td>
+            <div class="table-actions">
+              <button class="btn btn-info" (click)="update(uno)"><i class="fa fa-pen"></i></button>
+  
+              <button class="btn btn-danger" (click)="delete(uno)"><i class="fa fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="!hermanos" class="loading">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+  </div>

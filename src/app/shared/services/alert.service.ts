@@ -67,21 +67,23 @@ export class AlertService {
     });
   }
 
-  confirmAlert(mensaje: string, si: string, no: string, exito: string) {
+  confirmAlert() {
     return new Promise((resolve) => {
       Swal.fire({
-        title: mensaje,
+        title: '¿Esta seguro?',
         showDenyButton: true,
-        denyButtonText: no,
-        confirmButtonText: si
+
+        confirmButtonText: 'Si',
+        denyButtonText: `Cancelar`,
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           resolve(true);
-          Swal.fire(exito, '', 'success');
+          Swal.fire('Eliminado correctamente', '', 'info');
         }
         resolve(false);
       });
     });
   }
+
 }
