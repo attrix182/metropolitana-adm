@@ -99,8 +99,7 @@ export class AdminDisponibilidadComponent implements OnInit {
 
   onReset() {
     this.disponibilidadSVC.getResetDisponibilidad().subscribe((reset) => {
-      if(reset)
-      this.reset();
+      if (reset) this.reset();
       this.sendDisponibilidad();
     });
   }

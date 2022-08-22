@@ -34,7 +34,7 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
   }
 
   saveHermano() {
-    if(this.loading) return;
+    if (this.loading) return;
     this.loading = true;
     this.formatHermano();
     let noSeteoHorario = this.disponibilidad.filter((d) => d.horario.length == 0).length == 0;

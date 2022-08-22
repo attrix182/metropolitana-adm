@@ -6,14 +6,12 @@ import { Disponibilidad } from 'src/app/models/hermano.model';
   providedIn: 'root'
 })
 export class AdminDisponibilidadService {
-
   disponibilidad: Disponibilidad[];
   private disponibilidad$: Subject<Disponibilidad[]>;
-  reset:boolean;
+  reset: boolean;
   private reset$: Subject<boolean>;
 
-
-  constructor() { 
+  constructor() {
     this.disponibilidad = [];
     this.disponibilidad$ = new Subject();
 
@@ -22,7 +20,7 @@ export class AdminDisponibilidadService {
   }
 
   setDisponibilidad(disponibilidad: Disponibilidad[]) {
-    if(!disponibilidad) return;
+    if (!disponibilidad) return;
     this.disponibilidad = disponibilidad;
     this.disponibilidad$.next(this.disponibilidad);
   }
@@ -39,5 +37,4 @@ export class AdminDisponibilidadService {
   getResetDisponibilidad(): Observable<any> {
     return this.reset$.asObservable();
   }
-
 }
