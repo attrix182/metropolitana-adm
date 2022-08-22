@@ -15,8 +15,7 @@ export abstract class FormValidator {
 
   debeMostrarError(field: string): boolean {
     const validateField = this.formGroup.get(field);
-
-    return !validateField.valid && validateField.touched;
+    return validateField.status == 'INVALID' && validateField.touched;
   }
 
   obtenerTextoError(field: string) {

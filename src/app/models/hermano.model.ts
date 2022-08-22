@@ -12,6 +12,8 @@ export interface Hermano {
 
 
 
+
+
 export interface Disponibilidad {
   dia: Dias;
   horario: Horarios[];

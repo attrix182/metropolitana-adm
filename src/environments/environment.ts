@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyDgxbYprqi2dGaBFhX99HTsS2kgaUHaBDY",
-    authDomain: "admin-territorio.firebaseapp.com",
-    projectId: "admin-territorio",
-    storageBucket: "admin-territorio.appspot.com",
-    messagingSenderId: "898741641283",
-    appId: "1:898741641283:web:7e8963feaed579d48574f6",
-    measurementId: "G-YRJ9K6Z931"
+    apiKey: "AIzaSyBvOBNSvjWQBxfIUUkG5s_dx8h0Y82pork",
+    authDomain: "smartwallet-7d150.firebaseapp.com",
+    projectId: "smartwallet-7d150",
+    storageBucket: "smartwallet-7d150.appspot.com",
+    messagingSenderId: "757840424597",
+    appId: "1:757840424597:web:8d1a2924dab00f6bec759c"
   }
 };
 

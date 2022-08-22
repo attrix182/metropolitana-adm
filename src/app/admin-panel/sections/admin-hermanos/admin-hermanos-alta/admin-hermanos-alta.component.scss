@@ -1,23 +1,29 @@
-.rounded{
-    border-radius: 20px !important;
-    box-shadow: 1px 1px 15px #8f8c8c;
+.rounded {
+  border-radius: 20px !important;
+  box-shadow: 1px 1px 15px #8f8c8c;
 }
 
-input{
-    border-radius: 18px !important;
+input {
+  border-radius: 18px !important;
 }
 
-.botones-disponibilidad{
-    button{
-        color: white;
-        margin: 2px;
-        height: 40px;
-        width: 40px;
-    }
+.botones-disponibilidad {
+  button {
+    color: white;
+    margin: 2px;
+    height: 40px;
+    width: 40px;
+  }
 
-    .btn:focus, .btn.focus {
-        box-shadow: none !important;
-    }
+  .btn:focus,
+  .btn.focus {
+    box-shadow: none !important;
+  }
+}
 
-
+.invalid-field {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
 }

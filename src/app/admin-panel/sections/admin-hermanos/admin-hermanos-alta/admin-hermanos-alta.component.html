@@ -7,13 +7,32 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Nombre" />
+          <input
+            type="text"
+            [class]="isValidField('nombre')"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Nombre"
+          />
+          <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
+            {{ obtenerTextoError('nombre') }}
+          </span>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="apellido">Apellido</label>
-          <input type="text" class="form-control" id="apellido" formControlName="apellido" placeholder="Apellido" />
+          <input
+            type="text"
+            class="form-control"
+            [class]="isValidField('apellido')"
+            id="apellido"
+            formControlName="apellido"
+            placeholder="Apellido"
+          />
+          <span *ngIf="debeMostrarError('apellido')" class="invalid-feedback">
+            {{ obtenerTextoError('apellido') }}
+          </span>
         </div>
       </div>
     </div>
@@ -24,22 +43,30 @@
           <input
             type="date"
             class="form-control"
+            [class]="isValidField('fechaNacimiento')"
             id="fechaNacimiento"
             formControlName="fechaNacimiento"
             placeholder="Fecha de nacimiento"
           />
+          <span *ngIf="debeMostrarError('fechaNacimiento')" class="invalid-feedback">
+            {{ obtenerTextoError('fechaNacimiento') }}
+          </span>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="fechaBautismo">Congregacion</label>
+          <label for="congregacion">Congregacion</label>
           <input
             type="text"
             class="form-control"
-            id="fechaBautismo"
+            [class]="isValidField('congregacion')"
+            id="congregacion"
             formControlName="congregacion"
             placeholder="Congregacion"
           />
+          <span *ngIf="debeMostrarError('congregacion')" class="invalid-feedback">
+            {{ obtenerTextoError('congregacion') }}
+          </span>
         </div>
       </div>
     </div>
@@ -47,17 +74,30 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="precursor">¿Sirve como precursor?</label>
-          <input type="checkbox" class="form-control" id="precursor" formControlName="precursor" />
+          <input
+            type="checkbox"
+            class="form-control"
+            [class]="isValidField('precursor')"
+            id="precursor"
+            formControlName="precursor"
+          />
+          <span *ngIf="debeMostrarError('precursor')" class="invalid-feedback">
+            {{ obtenerTextoError('precursor') }}
+          </span>
         </div>
       </div>
       <div class="col-md-6">
         <label for="disponibilidad">Disponibilidad</label> <br />
         <met-admin-disponibilidad></met-admin-disponibilidad>
+        <span *ngIf="showErrorDisponibilidad" class="invalid-field"> La disponibilidad es requerida </span>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12 text-center mt-4">
-        <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="saveHermano()">
+          <div *ngIf="!loading">Guardar</div>
+          <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
+        </button>
       </div>
     </div>
   </se>

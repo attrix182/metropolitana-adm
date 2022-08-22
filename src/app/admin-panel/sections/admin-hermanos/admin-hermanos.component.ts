@@ -26,21 +26,19 @@ export class AdminHermanosComponent implements OnInit {
         {
           dia: Dias.sabado,
           horario: [Horarios.M],
-          sabadosPorMes: 2,
-        },
-     
+          sabadosPorMes: 2
+        }
       ],
-    
+
       activo: true
     };
 
     this.setEdad(juan);
 
-    this.listarDatos(juan);
+    // this.listarDatos(juan);
   }
 
   listarDatos(hermano: Hermano) {
-    console.log(hermano);
     hermano.disponibilidad.forEach((unDia) => {
       console.log('_______DIA_______');
       console.log(Dias[unDia.dia]);
