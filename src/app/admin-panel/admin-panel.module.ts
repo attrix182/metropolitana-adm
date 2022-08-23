@@ -10,6 +10,11 @@ import { AdminHermanosAltaComponent } from './sections/admin-hermanos/admin-herm
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminDisponibilidadComponent } from './sections/admin-hermanos/admin-hermanos-alta/components/admin-disponibilidad/admin-disponibilidad.component';
 import { AdminHermanosListadoComponent } from './sections/admin-hermanos/admin-hermanos-listado/admin-hermanos-listado.component';
+import { AdminHorariosComponent } from './sections/admin-horarios/admin-horarios.component';
+import { AdminPuntosComponent } from './sections/admin-puntos/admin-puntos.component';
+import { AdminGrillaComponent } from './sections/admin-grilla/admin-grilla.component';
+import { AdminPuntosAltaComponent } from './sections/admin-puntos/admin-puntos-alta/admin-puntos-alta.component';
+import { AdminPuntosListadoComponent } from './sections/admin-puntos/admin-puntos-listado/admin-puntos-listado.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { AdminHermanosListadoComponent } from './sections/admin-hermanos/admin-h
     AdminHermanosComponent,
     AdminHermanosAltaComponent,
     AdminDisponibilidadComponent,
-    AdminHermanosListadoComponent
+    AdminHermanosListadoComponent,
+    AdminHorariosComponent,
+    AdminPuntosComponent,
+    AdminGrillaComponent,
+    AdminPuntosAltaComponent,
+    AdminPuntosListadoComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule]
 })

@@ -1,0 +1,14 @@
+.rounded {
+    border-radius: 20px !important;
+    box-shadow: 1px 1px 15px #8f8c8c;
+  }
+
+  .listado{
+    max-width: 400px;
+    text-align: center;
+    font-weight: 500;
+
+    .card{
+        box-shadow: 1px 1px 3px #8f8c8c;
+    }
+}

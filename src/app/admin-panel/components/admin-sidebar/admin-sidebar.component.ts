@@ -44,6 +44,16 @@ export class AdminSidebarComponent implements AfterViewInit {
         name: 'Horarios',
         icon: 'fas fa-clock',
         link: 'admin-horarios'
+      },
+      {
+        name:'Puntos',
+        icon: 'fas fa-location-dot',
+        link: 'admin-puntos'
+      },
+      {
+        name:'Grilla',
+        icon: 'fas fa-calendar',
+        link: 'admin-grilla'
       }
 
     ]

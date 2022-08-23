@@ -8,8 +8,11 @@
   <div class="col" [ngSwitch]="section">
     <met-admin-dashboard *ngSwitchCase="'admin-dashboard'"></met-admin-dashboard>
     <met-admin-hermanos *ngSwitchCase="'admin-hermanos'"></met-admin-hermanos>
+    <met-admin-horarios *ngSwitchCase="'admin-horarios'"></met-admin-horarios>
+    <met-admin-puntos *ngSwitchCase="'admin-puntos'"></met-admin-puntos>
+    <met-admin-grilla *ngSwitchCase="'admin-grilla'"></met-admin-grilla>
     <div *ngSwitchDefault="" style="display: flex; justify-content: center; align-items: center; height: 90vh">
-      <h3> <- Bienvenido, seleccione una opcion del menu</h3>
+      <h3><- Bienvenido, seleccione una opcion del menu</h3>
     </div>
   </div>
 </div>

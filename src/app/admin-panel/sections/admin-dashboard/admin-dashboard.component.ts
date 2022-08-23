@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() { }
+  hoy:string;
+
+  constructor() { 
+    this.hoy = new Date().toLocaleDateString();
+  }
 
   ngOnInit(): void {
   }
