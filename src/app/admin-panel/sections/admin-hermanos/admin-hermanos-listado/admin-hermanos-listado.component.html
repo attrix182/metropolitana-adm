@@ -16,6 +16,7 @@
         <th>Apellido</th>
         <th>Congregacion</th>
         <th>Edad</th>
+        <th>Disponibilidad</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -25,6 +26,7 @@
         <td>{{ uno.apellido }}</td>
         <td>{{ uno.congregacion }}</td>
         <td>{{ uno.edad }}</td>
+        <td>  <button class="btn btn-info"><i class="fa fa-calendar"></i></button></td>
         <td>
           <div class="table-actions">
             <button class="btn btn-info" (click)="update(uno)"><i class="fa fa-pen"></i></button>
