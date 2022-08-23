@@ -15,7 +15,7 @@ export class AdminPuntosAltaComponent extends FormValidator implements OnInit {
   disponibilidad: Disponibilidad[];
   showErrorDisponibilidad: boolean = false;
   loading: boolean = false;
-
+  edit:boolean = false;
   @Input() puntoModificacion: Punto;
 
   constructor(private FB: FormBuilder, private alertSVC: AlertService, private storageSVC: StorageService) {
@@ -26,13 +26,37 @@ export class AdminPuntosAltaComponent extends FormValidator implements OnInit {
     this.initForm();
   }
 
-  ngOnChanges(){
-console.log(this.puntoModificacion);
+  ngOnChanges() {
+    console.log(this.puntoModificacion);
+    if (this.puntoModificacion) {
+      this.edit = true;
+      this.formGroup.setValue({
+        nombre: this.puntoModificacion.nombre,
+        direccion: this.puntoModificacion.direccion,
+        descripcion: this.puntoModificacion.descripcion,
+        activo: this.puntoModificacion.activo
+      });
+    }
+  }
+
+  updatePunto(){
+    let puntoModificado = this.formGroup.value;
+    puntoModificado.activo = this.setActivo();
+    let id = this.puntoModificacion.id.toString();
+    this.storageSVC.Update(id,'puntos',puntoModificado).then(() => {
+      this.alertSVC.alertTop('success', 'Punto modificado correctamente');
+      this.formGroup.reset();
+      this.loading = false;
+    });
   }
 
   savePunto() {
     if (this.loading) return;
     this.loading = true;
+
+    if(this.edit){
+    this.updatePunto();
+    }else{
     this.punto = this.formGroup.value;
     this.punto.activo = this.setActivo();
     this.punto.fechaAlta = new Date();
@@ -42,6 +66,7 @@ console.log(this.puntoModificacion);
       this.formGroup.reset();
       this.loading = false;
     });
+  }
   }
 
   setActivo() {
