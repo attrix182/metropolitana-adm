@@ -1,14 +1,53 @@
 .rounded {
-    border-radius: 20px !important;
-    box-shadow: 1px 1px 15px #8f8c8c;
+  border-radius: 20px !important;
+  box-shadow: 1px 1px 15px #8f8c8c;
+}
+
+.filtros {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.selected {
+  background-color: rgb(16, 96, 186);
+  border-color: rgb(16, 96, 186);
+}
+
+.listado {
+  max-width: 400px;
+
+  font-weight: 500;
+
+  .card {
+    box-shadow: 1px 1px 3px #8f8c8c;
   }
 
-  .listado{
-    max-width: 400px;
-    text-align: center;
-    font-weight: 500;
+  .card-actions {
+    text-align: end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 
-    .card{
-        box-shadow: 1px 1px 3px #8f8c8c;
+    button {
+      color: white;
+      margin: 2px;
+      height: 40px;
+      width: 40px;
     }
+  }
+
+  .card-name {
+    margin-top: 6.5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.loading-puntos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

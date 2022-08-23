@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
               <label for="descripcion">Descripción</label>
               <textarea
@@ -49,6 +49,22 @@
               ></textarea>
               <span *ngIf="debeMostrarError('descripcion')" class="invalid-feedback">
                 {{ obtenerTextoError('descripcion') }}
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="activo">Punto activo</label>
+              <input
+                type="checkbox"
+                class="form-control mt-3"
+                [class]="isValidField('activo')"
+                id="activo"
+                formControlName="activo"
+              >
+              <span *ngIf="debeMostrarError('activo')" class="invalid-feedback">
+                {{ obtenerTextoError('activo') }}
               </span>
             </div>
           </div>

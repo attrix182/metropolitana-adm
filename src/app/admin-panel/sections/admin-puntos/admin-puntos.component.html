@@ -1,3 +1,3 @@
-<met-admin-puntos-alta></met-admin-puntos-alta>
+<met-admin-puntos-alta [puntoModificacion]="puntoSeleccionado"></met-admin-puntos-alta>
 
-<met-admin-puntos-listado [puntos]="puntos"></met-admin-puntos-listado>
+<met-admin-puntos-listado [puntos]="puntos" (setPunto)="modificarPunto($event)"></met-admin-puntos-listado>

@@ -9,10 +9,15 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminPuntosComponent implements OnInit {
   puntos: Punto[];
+  puntoSeleccionado:Punto;
   constructor(private storage: StorageService) {}
 
   ngOnInit(): void {
     this.getPuntos();
+  }
+
+  modificarPunto(punto?){
+    this.puntoSeleccionado = punto;
   }
 
   getPuntos() {

@@ -4,4 +4,5 @@ export interface Punto {
     direccion:string;
     descripcion?:string;
     activo:boolean;
+    fechaAlta?:Date;
 }
