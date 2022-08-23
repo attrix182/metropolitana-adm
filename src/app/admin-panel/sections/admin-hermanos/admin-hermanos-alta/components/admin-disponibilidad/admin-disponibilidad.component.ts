@@ -1,5 +1,5 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { Disponibilidad } from 'src/app/models/hermano.model';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { Dias, Disponibilidad, Horarios } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { AdminDisponibilidadService } from './admin-disponibilidad.service';
 
@@ -16,11 +16,15 @@ export class AdminDisponibilidadComponent implements OnInit {
   disponibilidad: Disponibilidad[] = [];
   sabadosMes: number = 0;
   domingosMes: number = 0;
+  @Input() disponibilidadShow: Disponibilidad[];
 
   constructor(private alertSVC: AlertService, private disponibilidadSVC: AdminDisponibilidadService) {}
 
   ngOnInit(): void {
     this.onReset();
+    if (this.disponibilidadShow) {
+
+    }
   }
 
   checkFinDeSemana() {
