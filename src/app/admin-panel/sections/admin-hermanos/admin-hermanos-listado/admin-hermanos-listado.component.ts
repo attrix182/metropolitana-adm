@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Disponibilidad, Hermano } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-
 
 @Component({
   selector: 'met-admin-hermanos-listado',
@@ -9,32 +10,40 @@ import { StorageService } from 'src/app/shared/services/storage.service';
   styleUrls: ['./admin-hermanos-listado.component.scss']
 })
 export class AdminHermanosListadoComponent implements OnInit {
-
   @Input() hermanos: any[];
   searchParam: string;
-  @Input() hermanosSearch: any;;
+  @Input() hermanosSearch: any;
   @Output() goToEdit = new EventEmitter<any>();
+  disponibilidadShow: Disponibilidad[];
+  hermanoSeleccionado:string;
 
-  constructor(private storageSVC:StorageService, private alertSvc:AlertService) {}
+  @ViewChild('disponibilidadModal', { read: TemplateRef })
+  disponibilidadModal: TemplateRef<any>;
 
-  ngOnInit(): void {
+  constructor(private storageSVC: StorageService, private alertSvc: AlertService, private modalService: NgbModal) {}
+
+  ngOnInit(): void {}
+
+  async delete(product: any) {
+    let confirm: any = false;
+    confirm = await this.alertSvc.confirmAlert();
+    if (confirm) {
+      this.storageSVC.Delete('hermanos', product.id).then(() => {
+        this.alertSvc.alertCenter('info', 'El hermano ha sido eliminado');
+      });
+    }
   }
 
+  update(product: any) {
+    this.goToEdit.emit(product);
+  }
 
-    async delete(product: any) {
-      console.log(product);
-      let confirm: any = false;
-      confirm = await this.alertSvc.confirmAlert();
-      if (confirm) {
-        this.storageSVC.Delete('hermanos', product.id).then(() => {
-          this.alertSvc.alertCenter('info', 'El hermano ha sido eliminado');
-        });
-      }
-    }
+  showDisponibilidad(uno: Hermano) {
+    this.disponibilidadShow = uno.disponibilidad;
+    this.hermanoSeleccionado = uno.nombre + ' ' + uno.apellido
 
-     update(product: any) {
-      this.goToEdit.emit(product);
-    }
+    this.modalService.open(this.disponibilidadModal);
+  }
 
   hacerBusqueda() {
     if (this.searchParam === '') {

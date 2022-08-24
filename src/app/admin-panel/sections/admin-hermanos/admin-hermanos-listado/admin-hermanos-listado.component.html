@@ -27,7 +27,7 @@
         <td>{{ uno.congregacion }}</td>
         <td>{{ uno.edad }}</td>
         <td>
-          <button class="btn btn-info"><i class="fa fa-calendar"></i></button>
+          <button class="btn btn-info" (click)="showDisponibilidad(uno)"><i class="fa fa-calendar"></i></button>
         </td>
         <td>
           <div class="table-actions">
@@ -39,9 +39,6 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- <met-admin-disponibilidad class="m-4 p-4" [disponibilidadShow]="hermanos[0].disponibilidad"></met-admin-disponibilidad> -->
-
   <div *ngIf="!hermanos" class="loading">
     <div class="spinner-border text-primary" role="status"></div>
   </div>
@@ -49,7 +46,6 @@
 
 <div class="cards-mobile">
   <div class="container bg-white mt-4 p-4 mb-4 rounded listado">
-
     <h2 align="center">Hermanos</h2>
 
     <input
@@ -68,18 +64,31 @@
               {{ card.nombre }}
               {{ card.apellido }}
             </div>
-            <button class="btn btn-info" ><i class="fa fa-pen"></i></button>
-            <button class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+            <button class="btn btn-info" (click)="showDisponibilidad(card)"><i class="fa fa-calendar"></i></button>
+            <button class="btn btn-info"><i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
           </div>
         </div>
       </div>
-    
+
       <div class="card mt-2 mb-2 p-2 loading-puntos" *ngIf="!hermanos">
-        <div class="spinner-border text-primary mt-1 mb-1" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      
+        <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #disponibilidadModal let-modal>
+  <div class="modal-body">
+    <div class="btn-exit">
+      <i (click)="modal.dismiss('Cross click')" class="btn btn-white"><i class="fas fa-times"></i> </i>
+    </div>
+    <div class="header-modal">
+      <h5 class="modal-title" i18n="modal.title">{{ hermanoSeleccionado }}</h5>
+    </div>
+
+    <div class="disponibilidad-modal">
+      <met-admin-disponibilidad [disponibilidadShow]="disponibilidadShow"></met-admin-disponibilidad>
+    </div>
+  </div>
+</ng-template>

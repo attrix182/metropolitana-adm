@@ -16,14 +16,22 @@ export class AdminDisponibilidadComponent implements OnInit {
   disponibilidad: Disponibilidad[] = [];
   sabadosMes: number = 0;
   domingosMes: number = 0;
-  @Input() disponibilidadShow: Disponibilidad[];
+  @Input() disponibilidadShow: any;
 
   constructor(private alertSVC: AlertService, private disponibilidadSVC: AdminDisponibilidadService) {}
 
   ngOnInit(): void {
     this.onReset();
-    if (this.disponibilidadShow) {
+  }
 
+  ngOnChanges() {
+
+  }
+
+  ngAfterViewInit() {
+    if (this.disponibilidadShow) {
+      this.reset();
+      this.setShowDias();
     }
   }
 
@@ -65,6 +73,16 @@ export class AdminDisponibilidadComponent implements OnInit {
   }
 
   agregarQuitarHorario(unHorario: any, dia: number) {
+    if (unHorario.length > 0) {
+      unHorario.forEach((h) => {
+        let btnH = document.getElementById(Horarios[h+1] + dia) as HTMLElement;
+        if (btnH) {
+          btnH.classList.replace('btn-danger', 'btn-success');
+        }
+      });
+      return;
+    }
+
     let diaExistente = this.disponibilidad.find((d) => d.dia === dia);
     if (!diaExistente) {
       this.alertSVC.alertCenter('warning', 'No seleccionaste ese día');
@@ -77,7 +95,6 @@ export class AdminDisponibilidadComponent implements OnInit {
       diaExistente.horario.splice(index, 1);
     }
     this.sendDisponibilidad();
-
     let btnHorario = document.getElementById(unHorario + dia) as HTMLElement;
 
     if (btnHorario.classList.contains('btn-success')) {
@@ -87,8 +104,24 @@ export class AdminDisponibilidadComponent implements OnInit {
     }
   }
 
+  setShowDias() {
+    this.disponibilidadShow.forEach((d) => {
+      let dia = Dias[d.dia];
+      if (d.dia == 1 || d.dia == 2) {
+        if (d.dia == 1) dia = 'Ma';
+        if (d.dia == 2) dia = 'Mi';
+        this.agregarQuitarDia(dia);
+
+        this.agregarQuitarHorario(d.horario, d.dia);
+      } else {
+        dia = dia.toString().split('')[0].toUpperCase();
+        this.agregarQuitarDia(dia);
+        this.agregarQuitarHorario(d.horario, d.dia);
+      }
+    });
+  }
+
   onSetDiasFinDeSemana() {
-    console.log(this.disponibilidad);
     if (this.seleccionoSabado) {
       let sabado = this.disponibilidad.find((d) => d.dia === 5);
       sabado.sabadosPorMes = this.sabadosMes;

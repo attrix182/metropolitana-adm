@@ -70,3 +70,24 @@
     align-items: center;
     width: 100%;
 }
+
+.btn-exit{
+  display: flex;
+  justify-content: flex-end;
+  i{
+    font-size: 1.3em;
+  }
+}
+
+.disponibilidad-modal{
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.header-modal{
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+
