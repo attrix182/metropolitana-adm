@@ -41,7 +41,7 @@ export class AdminHermanosListadoComponent implements OnInit {
   showDisponibilidad(uno: Hermano) {
     this.disponibilidadShow = uno.disponibilidad;
     this.hermanoSeleccionado = uno.nombre + ' ' + uno.apellido
-
+    console.log(this.disponibilidadShow);
     this.modalService.open(this.disponibilidadModal);
   }
 

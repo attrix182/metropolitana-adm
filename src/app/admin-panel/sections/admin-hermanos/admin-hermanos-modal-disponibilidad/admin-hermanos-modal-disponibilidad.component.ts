@@ -1,30 +1,24 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Output } from '@angular/core';
 import { Dias, Disponibilidad, Horarios } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
-import { AdminDisponibilidadService } from './admin-disponibilidad.service';
+import { AdminDisponibilidadService } from '../admin-hermanos-alta/components/admin-disponibilidad/admin-disponibilidad.service';
 
 @Component({
-  selector: 'met-admin-disponibilidad',
-  templateUrl: './admin-disponibilidad.component.html',
-  styleUrls: ['./admin-disponibilidad.component.scss']
+  selector: 'met-admin-hermanos-modal-disponibilidad',
+  templateUrl: './admin-hermanos-modal-disponibilidad.component.html',
+  styleUrls: ['./admin-hermanos-modal-disponibilidad.component.scss']
 })
-export class AdminDisponibilidadComponent implements OnInit {
+export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit {
   dias: string[] = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
   horarios: string[] = ['M', 'MD', 'T', 'N'];
   seleccionoSabado: boolean = false;
   seleccionoDomingo: boolean = false;
   disponibilidad: Disponibilidad[] = [];
-  sabadosMes: number = 0;
-  domingosMes: number = 0;
+  sabadosMes: number;
+  domingosMes: number;
   @Input() disponibilidadShow: any;
 
   constructor(private alertSVC: AlertService, private disponibilidadSVC: AdminDisponibilidadService) {}
-
-  ngOnInit(): void {
-    this.onReset();
-  }
-
-  ngOnChanges() {}
 
   ngAfterViewInit() {
     if (this.disponibilidadShow) {
@@ -59,7 +53,6 @@ export class AdminDisponibilidadComponent implements OnInit {
     } else {
       this.disponibilidad.splice(index, 1);
     }
-    this.sendDisponibilidad();
     this.checkFinDeSemana();
 
     let btnDia = document.getElementById(unDia) as HTMLElement;
@@ -72,29 +65,25 @@ export class AdminDisponibilidadComponent implements OnInit {
   }
 
   agregarQuitarHorario(unHorario: any, dia: number) {
-    let diaExistente = this.disponibilidad.find((d) => d.dia === dia);
-    if (!diaExistente) {
-      this.alertSVC.alertCenter('warning', 'No seleccionaste ese día');
-      return;
-    }
-    let index = diaExistente.horario.indexOf(unHorario);
-    if (index === -1) {
-      diaExistente.horario.push(this.horarios.indexOf(unHorario));
-    } else {
-      diaExistente.horario.splice(index, 1);
-    }
-    this.sendDisponibilidad();
-    let btnHorario = document.getElementById(unHorario + dia) as HTMLElement;
-
-    if (btnHorario.classList.contains('btn-success')) {
-      btnHorario.classList.replace('btn-success', 'btn-danger');
-    } else {
-      btnHorario.classList.replace('btn-danger', 'btn-success');
-    }
+    unHorario.forEach((h) => {
+      let btnH = document.getElementById(Horarios[h + 1] + dia) as HTMLElement;
+      if (btnH) {
+        btnH.classList.replace('btn-danger', 'btn-success');
+      }
+    });
   }
 
   setShowDias() {
     this.setDisabled();
+
+    let sabado = this.disponibilidadShow.find((d) => d.dia === 5);
+    let domingo = this.disponibilidadShow.find((d) => d.dia === 6);
+    if (sabado) {
+      this.sabadosMes = sabado.sabadosPorMes;
+    }
+    if (domingo) {
+      this.domingosMes = domingo.domingosPorMes;
+    }
 
     this.disponibilidadShow.forEach((d) => {
       let dia = Dias[d.dia];
@@ -116,19 +105,16 @@ export class AdminDisponibilidadComponent implements OnInit {
     if (this.seleccionoSabado) {
       let sabado = this.disponibilidad.find((d) => d.dia === 5);
       sabado.sabadosPorMes = this.sabadosMes;
-      this.sendDisponibilidad();
     }
     if (this.seleccionoDomingo) {
       let domingo = this.disponibilidad.find((d) => d.dia === 6);
       domingo.domingosPorMes = this.domingosMes;
-      this.sendDisponibilidad();
     }
   }
 
   onReset() {
     this.disponibilidadSVC.getResetDisponibilidad().subscribe((reset) => {
       if (reset) this.reset();
-      this.sendDisponibilidad();
     });
   }
 
@@ -222,9 +208,5 @@ export class AdminDisponibilidadComponent implements OnInit {
       let btnHorario = document.getElementById(horario) as HTMLElement;
       btnHorario.classList.replace('btn-success', 'btn-danger');
     });
-  }
-
-  sendDisponibilidad() {
-    this.disponibilidadSVC.setDisponibilidad(this.disponibilidad);
   }
 }

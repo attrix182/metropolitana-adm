@@ -68,7 +68,6 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
     this.disponibilidadSVC.getDisponibilidad$().subscribe((disponibilidad) => {
       this.disponibilidad = disponibilidad;
       this.setErrorDisponibilidad();
-      console.log(this.disponibilidad);
     });
   }
 
