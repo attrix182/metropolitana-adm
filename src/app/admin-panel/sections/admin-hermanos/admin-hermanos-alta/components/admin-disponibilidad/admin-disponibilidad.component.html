@@ -102,10 +102,11 @@
 
 <div class="col-12" *ngIf="seleccionoSabado">
   <div class="form-group">
-    <label for="precursor">Sabados por mes</label>
+    <label for="sabadosMes">Sabados por mes</label>
     <input
       type="number"
       class="form-control"
+      id="sabadosMes"
       (change)="onSetDiasFinDeSemana()"
       [(ngModel)]="sabadosMes"
       placeholder="Sabados por mes"

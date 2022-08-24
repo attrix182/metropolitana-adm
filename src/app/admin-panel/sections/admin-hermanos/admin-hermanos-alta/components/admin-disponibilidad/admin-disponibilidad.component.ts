@@ -24,9 +24,7 @@ export class AdminDisponibilidadComponent implements OnInit {
     this.onReset();
   }
 
-  ngOnChanges() {
-
-  }
+  ngOnChanges() {}
 
   ngAfterViewInit() {
     if (this.disponibilidadShow) {
@@ -75,7 +73,7 @@ export class AdminDisponibilidadComponent implements OnInit {
   agregarQuitarHorario(unHorario: any, dia: number) {
     if (unHorario.length > 0) {
       unHorario.forEach((h) => {
-        let btnH = document.getElementById(Horarios[h+1] + dia) as HTMLElement;
+        let btnH = document.getElementById(Horarios[h + 1] + dia) as HTMLElement;
         if (btnH) {
           btnH.classList.replace('btn-danger', 'btn-success');
         }
@@ -105,6 +103,9 @@ export class AdminDisponibilidadComponent implements OnInit {
   }
 
   setShowDias() {
+    this.setDisabled();
+
+
     this.disponibilidadShow.forEach((d) => {
       let dia = Dias[d.dia];
       if (d.dia == 1 || d.dia == 2) {
@@ -119,6 +120,8 @@ export class AdminDisponibilidadComponent implements OnInit {
         this.agregarQuitarHorario(d.horario, d.dia);
       }
     });
+    this.sabadosMes = this.disponibilidadShow.sabadosMes;
+    this.domingosMes = this.disponibilidadShow.domingosMes;
   }
 
   onSetDiasFinDeSemana() {
@@ -138,6 +141,51 @@ export class AdminDisponibilidadComponent implements OnInit {
     this.disponibilidadSVC.getResetDisponibilidad().subscribe((reset) => {
       if (reset) this.reset();
       this.sendDisponibilidad();
+    });
+  }
+
+  setDisabled() {
+    this.disponibilidad = [];
+
+    let idBtnDias = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
+    let idBtnHorarios = [
+      'M0',
+      'MD0',
+      'T0',
+      'N0',
+      'M1',
+      'MD1',
+      'T1',
+      'N1',
+      'M2',
+      'MD2',
+      'T2',
+      'N2',
+      'M3',
+      'MD3',
+      'T3',
+      'N3',
+      'M4',
+      'MD4',
+      'T4',
+      'N4',
+      'M5',
+      'MD5',
+      'T5',
+      'N5',
+      'M6',
+      'MD6',
+      'T6',
+      'N6'
+    ];
+
+    idBtnDias.forEach((dia) => {
+      let btnDia = document.getElementById(dia) as HTMLElement;
+      btnDia.setAttribute('disabled', 'true');
+    });
+    idBtnHorarios.forEach((horario) => {
+      let btnHorario = document.getElementById(horario) as HTMLElement;
+      btnHorario.setAttribute('disabled', 'true');
     });
   }
 
