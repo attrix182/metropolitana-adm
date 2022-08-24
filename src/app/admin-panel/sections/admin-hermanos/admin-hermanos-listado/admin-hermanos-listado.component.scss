@@ -18,3 +18,55 @@
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 768px){
+  .table-desktop{
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .cards-mobile{
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.listado {
+  max-width: 400px;
+
+  font-weight: 500;
+
+  .card {
+    box-shadow: 1px 1px 3px #8f8c8c;
+  }
+
+  .card-actions {
+    text-align: end;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      color: white;
+      margin: 2px;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  .card-name {
+    margin-top: 6.5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.loading-puntos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

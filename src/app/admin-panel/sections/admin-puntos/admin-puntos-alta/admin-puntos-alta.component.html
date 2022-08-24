@@ -1,83 +1,81 @@
 <div class="container bg-white mt-4 p-4 mb-4 rounded">
-    <div [formGroup]="formGroup">
-      <div class="row">
-        <div class="col-md-12 text-center"><h1>Alta de Punto de predicacion</h1></div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input
-              type="text"
-              [class]="isValidField('nombre')"
-              class="form-control"
-              formControlName="nombre"
-              placeholder="Nombre"
-            />
-            <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
-              {{ obtenerTextoError('nombre') }}
-            </span>
-          </div>
+  <div [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-md-12 text-center"><h2>Alta de Punto de predicacion</h2></div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            type="text"
+            [class]="isValidField('nombre')"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Nombre"
+          />
+          <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
+            {{ obtenerTextoError('nombre') }}
+          </span>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="direccion">Direccion</label>
-            <input
-              type="text"
-              class="form-control"
-              [class]="isValidField('direccion')"
-              id="direccion"
-              formControlName="direccion"
-              placeholder="Direccion"
-            />
-            <span *ngIf="debeMostrarError('direccion')" class="invalid-feedback">
-              {{ obtenerTextoError('direccion') }}
-            </span>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-group">
-              <label for="descripcion">Descripción</label>
-              <textarea
-                type="text"
-                class="form-control"
-                [class]="isValidField('descripcion')"
-                id="descripcion"
-                formControlName="descripcion"
-                placeholder="Descripcion"
-              ></textarea>
-              <span *ngIf="debeMostrarError('descripcion')" class="invalid-feedback">
-                {{ obtenerTextoError('descripcion') }}
-              </span>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="activo">Punto activo</label>
-              <input
-                type="checkbox"
-                class="form-control mt-3"
-                [class]="isValidField('activo')"
-                id="activo"
-                formControlName="activo"
-              >
-              <span *ngIf="debeMostrarError('activo')" class="invalid-feedback">
-                {{ obtenerTextoError('activo') }}
-              </span>
-            </div>
-          </div>
-
       </div>
-      <div class="row">
-        <div class="col-md-12 text-center mt-4">
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="savePunto()">
-            <div *ngIf="!loading">Guardar</div>
-            <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
-          </button>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="direccion">Direccion</label>
+          <input
+            type="text"
+            class="form-control"
+            [class]="isValidField('direccion')"
+            id="direccion"
+            formControlName="direccion"
+            placeholder="Direccion"
+          />
+          <span *ngIf="debeMostrarError('direccion')" class="invalid-feedback">
+            {{ obtenerTextoError('direccion') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            type="text"
+            class="form-control"
+            [class]="isValidField('descripcion')"
+            id="descripcion"
+            formControlName="descripcion"
+            placeholder="Descripcion"
+          ></textarea>
+          <span *ngIf="debeMostrarError('descripcion')" class="invalid-feedback">
+            {{ obtenerTextoError('descripcion') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="activo">Punto activo</label>
+          <input
+            type="checkbox"
+            class="form-control mt-3"
+            [class]="isValidField('activo')"
+            id="activo"
+            formControlName="activo"
+          />
+          <span *ngIf="debeMostrarError('activo')" class="invalid-feedback">
+            {{ obtenerTextoError('activo') }}
+          </span>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="savePunto()">
+          <div *ngIf="!loading">Guardar</div>
+          <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
+        </button>
+      </div>
+    </div>
   </div>
-  
+</div>

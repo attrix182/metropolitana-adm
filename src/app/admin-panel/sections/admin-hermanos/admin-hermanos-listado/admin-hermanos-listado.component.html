@@ -1,4 +1,4 @@
-<div class="container bg-white mt-4 p-4 mb-4 rounded">
+<div class="container bg-white mt-4 p-4 mb-4 rounded table-desktop">
   <h2 align="center">Hermanos</h2>
 
   <input
@@ -26,7 +26,9 @@
         <td>{{ uno.apellido }}</td>
         <td>{{ uno.congregacion }}</td>
         <td>{{ uno.edad }}</td>
-        <td>  <button class="btn btn-info"><i class="fa fa-calendar"></i></button></td>
+        <td>
+          <button class="btn btn-info"><i class="fa fa-calendar"></i></button>
+        </td>
         <td>
           <div class="table-actions">
             <button class="btn btn-info" (click)="update(uno)"><i class="fa fa-pen"></i></button>
@@ -37,7 +39,7 @@
       </tr>
     </tbody>
   </table>
-  
+
   <!-- <met-admin-disponibilidad class="m-4 p-4" [disponibilidadShow]="hermanos[0].disponibilidad"></met-admin-disponibilidad> -->
 
   <div *ngIf="!hermanos" class="loading">
@@ -45,3 +47,39 @@
   </div>
 </div>
 
+<div class="cards-mobile">
+  <div class="container bg-white mt-4 p-4 mb-4 rounded listado">
+
+    <h2 align="center">Hermanos</h2>
+
+    <input
+      [(ngModel)]="searchParam"
+      (ngModelChange)="hacerBusqueda()"
+      type="text"
+      placeholder="Buscador inteligente..."
+      class="form-control mb-2"
+    />
+
+    <div class="row justify-content-center">
+      <div class="col-12" *ngFor="let card of hermanos">
+        <div class="card mt-2 mb-2 p-2">
+          <div class="card-actions">
+            <div class="card-name">
+              {{ card.nombre }}
+              {{ card.apellido }}
+            </div>
+            <button class="btn btn-info" ><i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="card mt-2 mb-2 p-2 loading-puntos" *ngIf="!hermanos">
+        <div class="spinner-border text-primary mt-1 mb-1" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
