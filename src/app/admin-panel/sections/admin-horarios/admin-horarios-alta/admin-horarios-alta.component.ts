@@ -11,12 +11,12 @@ import { StorageService } from 'src/app/shared/services/storage.service';
   styleUrls: ['./admin-horarios-alta.component.scss']
 })
 export class AdminHorariosAltaComponent extends FormValidator implements OnInit {
-
   horario: Horario;
-  horarios: Horario[];
+
   showErrorDisponibilidad: boolean = false;
   loading: boolean = false;
-  edit:boolean = false;
+  edit: boolean = false;
+  @Input() horariosValidar: Horario[];
   @Input() horarioModificacion: Horario;
 
   constructor(private FB: FormBuilder, private alertSVC: AlertService, private storageSVC: StorageService) {
@@ -25,6 +25,9 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
 
   ngOnInit(): void {
     this.initForm();
+    setTimeout(() => {
+      console.log(this.horariosValidar);
+    }, 2000);
   }
 
   ngOnChanges() {
@@ -33,44 +36,70 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
       this.formGroup.setValue({
         horarioInicio: this.horarioModificacion.horarioInicio,
         horarioFin: this.horarioModificacion.horarioFin
-
       });
     }
   }
 
-  updateHorario(){
+  updateHorario() {
     let horarioModificado = this.formGroup.value;
     let id = this.horarioModificacion.id.toString();
-    this.storageSVC.Update(id,'horarios',horarioModificado).then(() => {
+
+    this.storageSVC.Update(id, 'horarios', horarioModificado).then(() => {
       this.alertSVC.alertTop('success', 'Horario modificado correctamente');
       this.formGroup.reset();
+      this.resetForm();
+      this.horario = null;
+      this.edit = false;
+      this.horarioModificacion = null;
       this.loading = false;
     });
   }
 
- saveHorario() {
+  saveHorario() {
     if (this.loading) return;
     this.loading = true;
-
-    if(this.edit){
-    this.updateHorario();
-    }else{
-    this.horario = this.formGroup.value;
-
-    this.storageSVC.Insert('horarios', this.horario).then(() => {
-      this.alertSVC.alertTop('success', 'Horario guardado correctamente');
-      this.formGroup.reset();
+    if (this.validarExistencia()) {
+      this.alertSVC.alertTop('error', 'Ese horario ya existe');
       this.loading = false;
-    });
-  }
+      return;
+    } else {
+      if (this.edit) {
+        this.updateHorario();
+      } else {
+        this.horario = this.formGroup.value;
+
+        this.storageSVC.Insert('horarios', this.horario).then(() => {
+          this.alertSVC.alertTop('success', 'Horario guardado correctamente');
+          this.formGroup.reset();
+          this.resetForm();
+          this.horario = null;
+          this.loading = false;
+        });
+      }
+    }
   }
 
+  validarExistencia(): boolean {
+    let exists = this.horariosValidar.find(
+      (x) => x.horarioInicio === this.formGroup.value.horarioInicio && x.horarioFin === this.formGroup.value.horarioFin
+    );
+    if (exists) {
+      return true;
+    }
+    return false;
+  }
 
   initForm() {
     this.formGroup = this.FB.group({
       horarioInicio: ['', Validators.required],
       horarioFin: ['', Validators.required]
-    
+    });
+  }
+
+  resetForm() {
+    this.formGroup.setValue({
+      horarioInicio: '',
+      horarioFin: ''
     });
   }
 
