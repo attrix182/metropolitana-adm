@@ -18,7 +18,13 @@ import { AdminPuntosListadoComponent } from './sections/admin-puntos/admin-punto
 import { AdminHermanosModalDisponibilidadComponent } from './sections/admin-hermanos/admin-hermanos-modal-disponibilidad/admin-hermanos-modal-disponibilidad.component';
 import { AdminHorariosAltaComponent } from './sections/admin-horarios/admin-horarios-alta/admin-horarios-alta.component';
 import { AdminHorariosListadoComponent } from './sections/admin-horarios/admin-horarios-listado/admin-horarios-listado.component';
+import { AdminGrillaAltaComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta.component';
+ 
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.dots
+};
 @NgModule({
   declarations: [
     AdminPanelComponent,
@@ -36,8 +42,9 @@ import { AdminHorariosListadoComponent } from './sections/admin-horarios/admin-h
     AdminPuntosListadoComponent,
     AdminHermanosModalDisponibilidadComponent,
     AdminHorariosAltaComponent,
-    AdminHorariosListadoComponent
+    AdminHorariosListadoComponent,
+    AdminGrillaAltaComponent
   ],
-  imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule, NgWizardModule.forRoot(ngWizardConfig)]
 })
 export class AdminPanelModule {}

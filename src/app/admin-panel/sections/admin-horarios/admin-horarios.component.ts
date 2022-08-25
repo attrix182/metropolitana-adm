@@ -9,20 +9,23 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminHorariosComponent implements OnInit {
   horarios: Horario[];
- horarioSeleccionado:Horario;
+  horarioSeleccionado: Horario;
   constructor(private storage: StorageService) {}
 
   ngOnInit(): void {
     this.getHorarios();
   }
 
-  updateHorario(horario?){
+  updateHorario(horario?) {
     this.horarioSeleccionado = horario;
   }
 
   getHorarios() {
     this.storage.GetAll('horarios').subscribe((data) => {
+      this.orderAsc(data);
       this.horarios = data;
     });
   }
+
+  orderAsc(horarios: Horario[]) {}
 }

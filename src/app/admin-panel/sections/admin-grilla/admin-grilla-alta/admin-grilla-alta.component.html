@@ -1,0 +1,43 @@
+<section class="container bg-white mt-4 p-4 mb-4 rounded">
+  <div class="text-center mb-4">
+    <h4>Crear un nuevo turno</h4>
+  </div>
+
+  <ng-wizard [config]="config" (stepChanged)="stepChanged($event)" style="display: flex; justify-content:center;">
+    <ng-wizard-step
+      [title]="'Punto'"
+      [description]="'Step 1 description'"
+      [canEnter]="isValidTypeBoolean"
+      [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+    >
+      <span>Seleccion de punto</span>
+    </ng-wizard-step>
+
+    <ng-wizard-step
+      [title]="'Horario'"
+      [description]="'Step 2 description'"
+      [canEnter]="isValidTypeBoolean"
+      [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+    >
+    <span>Seleccion de horario</span>
+    </ng-wizard-step>
+
+    <ng-wizard-step
+      [title]="'Hermanos'"
+      [description]="'Step 2 description'"
+      [canEnter]="isValidTypeBoolean"
+      [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+    >
+    <span>Seleccion de hermanos</span>
+    </ng-wizard-step>
+
+    <ng-wizard-step
+      [title]="'Confirmacion'"
+      [description]="'Step 2 description'"
+      [canEnter]="isValidTypeBoolean"
+      [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+    >
+    <span>Confirmacion de selecciones</span>
+    </ng-wizard-step>
+  </ng-wizard>
+</section>
