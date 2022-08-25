@@ -18,7 +18,7 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
   domingosMes: number;
   @Input() disponibilidadShow: any;
 
-  constructor(private alertSVC: AlertService, private disponibilidadSVC: AdminDisponibilidadService) {}
+  constructor(private disponibilidadSVC: AdminDisponibilidadService) {}
 
   ngAfterViewInit() {
     if (this.disponibilidadShow) {
@@ -86,7 +86,6 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
 
   setShowDias() {
     this.setDisabled();
-
     this.disponibilidadShow.forEach((d) => {
       let dia = Dias[d.dia];
       if (d.dia == 1 || d.dia == 2) {

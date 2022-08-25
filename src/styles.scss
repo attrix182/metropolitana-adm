@@ -16,6 +16,10 @@ button{
     border-radius: 0.5em;
 }
 
+.rounded {
+    border-radius: 20px !important;
+    box-shadow: 1px 1px 15px #8f8c8c;
+  }
 
 
 /* Importing Bootstrap SCSS file. */

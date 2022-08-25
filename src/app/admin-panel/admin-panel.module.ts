@@ -16,6 +16,8 @@ import { AdminGrillaComponent } from './sections/admin-grilla/admin-grilla.compo
 import { AdminPuntosAltaComponent } from './sections/admin-puntos/admin-puntos-alta/admin-puntos-alta.component';
 import { AdminPuntosListadoComponent } from './sections/admin-puntos/admin-puntos-listado/admin-puntos-listado.component';
 import { AdminHermanosModalDisponibilidadComponent } from './sections/admin-hermanos/admin-hermanos-modal-disponibilidad/admin-hermanos-modal-disponibilidad.component';
+import { AdminHorariosAltaComponent } from './sections/admin-horarios/admin-horarios-alta/admin-horarios-alta.component';
+import { AdminHorariosListadoComponent } from './sections/admin-horarios/admin-horarios-listado/admin-horarios-listado.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AdminHermanosModalDisponibilidadComponent } from './sections/admin-herm
     AdminGrillaComponent,
     AdminPuntosAltaComponent,
     AdminPuntosListadoComponent,
-    AdminHermanosModalDisponibilidadComponent
+    AdminHermanosModalDisponibilidadComponent,
+    AdminHorariosAltaComponent,
+    AdminHorariosListadoComponent
   ],
   imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule]
 })

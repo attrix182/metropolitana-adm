@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
           <label for="precursor">¿Sirve como precursor?</label>
           <input
@@ -86,12 +86,23 @@
           </span>
         </div>
       </div>
-      <div class="col-md-6">
-        <label for="disponibilidad">Disponibilidad</label> <br />
+
+      <!--      <div class="col-md-6" *ngIf="hermanoToEdit.disponibilidad">
+        <label for="disponibilidad-anterior">Disponibilidad anterior</label> <br />
+      <met-admin-hermanos-modal-disponibilidad [disponibilidadShow]="hermanoToEdit.disponibilidad"></met-admin-hermanos-modal-disponibilidad>
+    </div>
+ -->
+
+      <div style="margin: auto">
+        <label for="disponibilidad">Disponibilidad</label>
+      </div>
+
+      <div class="col-md-12" style="display: flex; justify-content: center">
         <met-admin-disponibilidad [disponibilidadEdit]="hermanoToEdit?.disponibilidad"></met-admin-disponibilidad>
         <span *ngIf="showErrorDisponibilidad" class="invalid-field"> La disponibilidad es requerida </span>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12 text-center mt-4">
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="saveHermano()">

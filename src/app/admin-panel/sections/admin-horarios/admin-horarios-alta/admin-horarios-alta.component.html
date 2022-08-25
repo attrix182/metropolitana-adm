@@ -1,0 +1,73 @@
+<section class="container bg-white mt-4 p-4 mb-4 rounded">
+  <form [formGroup]="formGroup">
+    <!--  <div class="row">
+      <div class="col-md-12 text-center"><h2>Alta de horario</h2></div>
+    </div> -->
+
+    <div class="row">
+        <!--    Horario Inicio    -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">Horario de inicio</label>
+          <input
+            type="time"
+            id="horarioInicio"
+            [class]="isValidField('horarioInicio')"
+            class="form-control"
+            formControlName="horarioInicio"
+            placeholder="Horario de Inicio"
+          />
+          <span *ngIf="debeMostrarError('horarioInicio')" class="invalid-feedback">
+            {{ obtenerTextoError('horarioInicio') }}
+          </span>
+        </div>
+      </div>
+        <!--    Horario Fin    -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nombre">>Horario de fin</label>
+          <input
+            type="time"
+            id="horarioFin"
+            [class]="isValidField('horarioFin')"
+            class="form-control"
+            formControlName="horarioFin"
+            placeholder="Horario de Fin"
+          />
+          <span *ngIf="debeMostrarError('horarioFin')" class="invalid-feedback">
+            {{ obtenerTextoError('horarioFin') }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-4">
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          class="btn btn-primary btn-block"
+          [disabled]="!formGroup.valid"
+          (click)="saveHorario()"
+        >
+          <div *ngIf="!loading">Guardar</div>
+          <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- <div class="row">
+    <div class="col-12 text-center mt-4">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        [disabled]="!formGroup.valid"
+        (click)="saveHorario()"
+      >
+        <div *ngIf="!loading">Guardar</div>
+        <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
+      </button>
+    </div>
+  </div>
+</div> -->
