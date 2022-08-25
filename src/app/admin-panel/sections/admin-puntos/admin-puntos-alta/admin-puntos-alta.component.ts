@@ -27,7 +27,6 @@ export class AdminPuntosAltaComponent extends FormValidator implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.puntoModificacion);
     if (this.puntoModificacion) {
       this.edit = true;
       this.formGroup.setValue({
