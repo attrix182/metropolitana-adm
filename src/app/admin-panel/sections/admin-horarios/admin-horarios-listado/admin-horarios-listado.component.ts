@@ -18,7 +18,6 @@ export class AdminHorariosListadoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.setFilterActivos();
   }
 
   updateHorario(horario: Horario) {
@@ -37,19 +36,6 @@ export class AdminHorariosListadoComponent implements OnInit {
     }
   }
 
-  setFilterActivos() {
-    this.filtroSeteado = true;
-    let btnActivos = document.querySelector('#activos');
-    this.removerSeleccionados();
-    btnActivos.classList.add('selected');
-  }
-
-  setFilterInactivos() {
-    this.filtroSeteado = false;
-    let btnInactivos = document.querySelector('#inactivos');
-    this.removerSeleccionados();
-    btnInactivos.classList.add('selected');
-  }
 
   removerSeleccionados() {
     let btnActivos = document.querySelector('#activos');
