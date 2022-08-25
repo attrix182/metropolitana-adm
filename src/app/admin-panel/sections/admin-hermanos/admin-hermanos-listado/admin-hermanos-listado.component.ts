@@ -11,9 +11,9 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminHermanosListadoComponent implements OnInit {
   @Input() hermanos: any[];
-  searchParam: string;
   @Input() hermanosSearch: any;
-  @Output() goToEdit = new EventEmitter<any>();
+  @Output() goToEdit = new EventEmitter<Hermano>();
+  searchParam: string;
   disponibilidadShow: Disponibilidad[];
   hermanoSeleccionado:string;
 
@@ -22,7 +22,8 @@ export class AdminHermanosListadoComponent implements OnInit {
 
   constructor(private storageSVC: StorageService, private alertSvc: AlertService, private modalService: NgbModal) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   async delete(product: any) {
     let confirm: any = false;
@@ -34,14 +35,13 @@ export class AdminHermanosListadoComponent implements OnInit {
     }
   }
 
-  update(product: any) {
-    this.goToEdit.emit(product);
+  goToEditHermano(hermano: Hermano) {
+    this.goToEdit.emit(hermano);
   }
 
   showDisponibilidad(uno: Hermano) {
     this.disponibilidadShow = uno.disponibilidad;
     this.hermanoSeleccionado = uno.nombre + ' ' + uno.apellido
-    console.log(this.disponibilidadShow);
     this.modalService.open(this.disponibilidadModal);
   }
 

@@ -27,6 +27,17 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
     }
   }
 
+  ngOnInit() {
+    let sabado = this.disponibilidadShow.find((d) => d.dia === 5);
+    let domingo = this.disponibilidadShow.find((d) => d.dia === 6);
+    if (sabado) {
+      this.sabadosMes = sabado.sabadosPorMes;
+    }
+    if (domingo) {
+      this.domingosMes = domingo.domingosPorMes;
+    }
+  }
+
   checkFinDeSemana() {
     if (this.disponibilidadShow) return;
     if (this.disponibilidad.find((d) => d.dia === 5)) {
@@ -75,15 +86,6 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
 
   setShowDias() {
     this.setDisabled();
-
-    let sabado = this.disponibilidadShow.find((d) => d.dia === 5);
-    let domingo = this.disponibilidadShow.find((d) => d.dia === 6);
-    if (sabado) {
-      this.sabadosMes = sabado.sabadosPorMes;
-    }
-    if (domingo) {
-      this.domingosMes = domingo.domingosPorMes;
-    }
 
     this.disponibilidadShow.forEach((d) => {
       let dia = Dias[d.dia];

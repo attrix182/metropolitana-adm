@@ -7,6 +7,7 @@
   *ngIf="!showFormAlta"
   [hermanosSearch]="hermanos"
   [hermanos]="hermanos"
+  (goToEdit)="sendEditHermano($event)"
 ></met-admin-hermanos-listado>
 
-<met-admin-hermanos-alta *ngIf="showFormAlta"> </met-admin-hermanos-alta>
+<met-admin-hermanos-alta *ngIf="showFormAlta"   [hermanoToEdit]="hermanoToEdit"> </met-admin-hermanos-alta>

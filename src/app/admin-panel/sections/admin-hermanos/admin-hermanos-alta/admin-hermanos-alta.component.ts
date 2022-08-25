@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { isEmpty } from 'rxjs/operators';
 import { Dias, Disponibilidad, Hermano, Horarios } from 'src/app/models/hermano.model';
 import { FormValidator } from 'src/app/shared/form-validator';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { AdminDisponibilidadComponent } from './components/admin-disponibilidad/admin-disponibilidad.component';
 import { AdminDisponibilidadService } from './components/admin-disponibilidad/admin-disponibilidad.service';
 
 @Component({
@@ -18,6 +17,7 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
   disponibilidad: Disponibilidad[];
   showErrorDisponibilidad: boolean = false;
   loading: boolean = false;
+  @Input() hermanoToEdit: any;
 
   constructor(
     private FB: FormBuilder,
@@ -31,24 +31,55 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
   ngOnInit(): void {
     this.initForm();
     this.getDisponibilidad();
+    this.fillToEdit();
+  }
+
+  fillToEdit() {
+    if (!this.hermanoToEdit) return;
+    this.formGroup.setValue({
+      nombre: this.hermanoToEdit.nombre,
+      apellido: this.hermanoToEdit.apellido,
+      fechaNacimiento: this.hermanoToEdit.fechaNacimiento,
+      congregacion: this.hermanoToEdit.congregacion,
+      precursor: this.hermanoToEdit.precursor
+    });
+    this.disponibilidad = this.hermanoToEdit.disponibilidad;
   }
 
   saveHermano() {
     if (this.loading) return;
     this.loading = true;
+
+    if (this.hermanoToEdit) {
+      this.updateHermano();
+    } else {
+      this.formatHermano();
+      let noSeteoHorario = this.disponibilidad.filter((d) => d.horario.length == 0).length == 0;
+      if (noSeteoHorario) {
+        this.storageSVC.Insert('hermanos', this.hermano).then(() => {
+          this.alertSVC.alertTop('success', 'Hermano guardado correctamente');
+          this.formGroup.reset();
+          this.disponibilidadSVC.setResetDisponibilidad(true);
+          this.loading = false;
+        });
+      } else {
+        this.alertSVC.alertCenter('error', 'Debe seleccionar un horario para cada día');
+        this.showErrorDisponibilidad = true;
+      }
+    }
+  }
+
+  updateHermano() {
+    let hermanoModificado = this.formGroup.value;
+    let id = this.hermanoToEdit.id.toString();
     this.formatHermano();
-    let noSeteoHorario = this.disponibilidad.filter((d) => d.horario.length == 0).length == 0;
-    if (noSeteoHorario) {
-      this.storageSVC.Insert('hermanos', this.hermano).then(() => {
-        this.alertSVC.alertTop('success', 'Hermano guardado correctamente');
+      this.storageSVC.Update(id, 'hermanos', hermanoModificado).then(() => {
+        this.alertSVC.alertTop('success', 'Hermano modificado correctamente');
         this.formGroup.reset();
         this.disponibilidadSVC.setResetDisponibilidad(true);
         this.loading = false;
       });
-    } else {
-      this.alertSVC.alertCenter('error', 'Debe seleccionar un horario para cada día');
-      this.showErrorDisponibilidad = true;
-    }
+    
   }
 
   formatHermano() {

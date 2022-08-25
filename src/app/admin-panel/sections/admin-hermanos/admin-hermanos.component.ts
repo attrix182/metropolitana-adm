@@ -10,6 +10,7 @@ export class AdminHermanosComponent implements OnInit {
 
   showFormAlta: boolean = false;
   hermanos:Hermano[];
+  hermanoToEdit: Hermano;
   constructor(private storageSVC:StorageService) {}
 
   ngOnInit(): void {
@@ -25,5 +26,10 @@ export class AdminHermanosComponent implements OnInit {
       this.hermanos = hermanos;
     }
     );
+  }
+
+  sendEditHermano(hermano:Hermano | any){
+    this.showFormAlta = true;
+    this.hermanoToEdit = hermano;
   }
 }

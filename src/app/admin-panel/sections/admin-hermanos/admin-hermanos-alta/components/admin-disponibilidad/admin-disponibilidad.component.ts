@@ -16,7 +16,7 @@ export class AdminDisponibilidadComponent implements OnInit {
   disponibilidad: Disponibilidad[] = [];
   sabadosMes: number = 0;
   domingosMes: number = 0;
-  @Input() disponibilidadShow: any;
+  @Input() disponibilidadEdit: any;
 
   constructor(private alertSVC: AlertService, private disponibilidadSVC: AdminDisponibilidadService) {}
 
@@ -24,17 +24,15 @@ export class AdminDisponibilidadComponent implements OnInit {
     this.onReset();
   }
 
-  ngOnChanges() {}
-
   ngAfterViewInit() {
-    if (this.disponibilidadShow) {
+    if (this.disponibilidadEdit) {
       this.reset();
       this.setShowDias();
     }
   }
 
   checkFinDeSemana() {
-    if (this.disponibilidadShow) return;
+    if (this.disponibilidadEdit) return;
     if (this.disponibilidad.find((d) => d.dia === 5)) {
       this.seleccionoSabado = true;
     } else {
@@ -71,6 +69,18 @@ export class AdminDisponibilidadComponent implements OnInit {
     }
   }
 
+  agregarQuitarHorarioInit(unHorario: any, dia: number) {
+    if (unHorario.length > 0) {
+      unHorario.forEach((h) => {
+        let btnH = document.getElementById(Horarios[h + 1] + dia) as HTMLElement;
+        if (btnH) {
+          btnH.classList.replace('btn-danger', 'btn-success');
+        }
+      });
+      return;
+    }
+  }
+
   agregarQuitarHorario(unHorario: any, dia: number) {
     let diaExistente = this.disponibilidad.find((d) => d.dia === dia);
     if (!diaExistente) {
@@ -85,7 +95,6 @@ export class AdminDisponibilidadComponent implements OnInit {
     }
     this.sendDisponibilidad();
     let btnHorario = document.getElementById(unHorario + dia) as HTMLElement;
-
     if (btnHorario.classList.contains('btn-success')) {
       btnHorario.classList.replace('btn-success', 'btn-danger');
     } else {
@@ -94,20 +103,20 @@ export class AdminDisponibilidadComponent implements OnInit {
   }
 
   setShowDias() {
-    this.setDisabled();
-
-    this.disponibilidadShow.forEach((d) => {
+    this.onReset();
+    return; //Parche momentaneo
+    this.disponibilidadEdit.forEach((d) => {
       let dia = Dias[d.dia];
       if (d.dia == 1 || d.dia == 2) {
         if (d.dia == 1) dia = 'Ma';
         if (d.dia == 2) dia = 'Mi';
         this.agregarQuitarDia(dia);
 
-        this.agregarQuitarHorario(d.horario, d.dia);
+        this.agregarQuitarHorarioInit(d.horario, d.dia);
       } else {
         dia = dia.toString().split('')[0].toUpperCase();
         this.agregarQuitarDia(dia);
-        this.agregarQuitarHorario(d.horario, d.dia);
+        this.agregarQuitarHorarioInit(d.horario, d.dia);
       }
     });
   }
@@ -129,53 +138,6 @@ export class AdminDisponibilidadComponent implements OnInit {
     this.disponibilidadSVC.getResetDisponibilidad().subscribe((reset) => {
       if (reset) this.reset();
       this.sendDisponibilidad();
-    });
-  }
-
-  setDisabled() {
-    this.disponibilidad = [];
-
-    let idBtnDias = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
-    let idBtnHorarios = [
-      'M0',
-      'MD0',
-      'T0',
-      'N0',
-      'M1',
-      'MD1',
-      'T1',
-      'N1',
-      'M2',
-      'MD2',
-      'T2',
-      'N2',
-      'M3',
-      'MD3',
-      'T3',
-      'N3',
-      'M4',
-      'MD4',
-      'T4',
-      'N4',
-      'M5',
-      'MD5',
-      'T5',
-      'N5',
-      'M6',
-      'MD6',
-      'T6',
-      'N6'
-    ];
-
-    idBtnDias.forEach((dia) => {
-      let btnDia = document.getElementById(dia) as HTMLElement;
-      btnDia.setAttribute('disabled', 'true');
-      btnDia.style.opacity = '1';
-    });
-    idBtnHorarios.forEach((horario) => {
-      let btnHorario = document.getElementById(horario) as HTMLElement;
-      btnHorario.setAttribute('disabled', 'true');
-      btnHorario.style.opacity = '1';
     });
   }
 
