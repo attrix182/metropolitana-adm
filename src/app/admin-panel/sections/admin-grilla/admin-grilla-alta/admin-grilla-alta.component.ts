@@ -20,10 +20,9 @@ export class AdminGrillaAltaComponent implements OnInit {
   config: NgWizardConfig = {
     selected: 0,
     theme: THEME.dots,
-    toolbarSettings: {
-      toolbarExtraButtons: [
-        { text: 'Finish', class: 'btn btn-info', event: () => { alert("Finished!!!"); } }
-      ],
+    lang: {
+      previous: 'Anterior',
+      next: 'Siguiente',
     }
   };
  
