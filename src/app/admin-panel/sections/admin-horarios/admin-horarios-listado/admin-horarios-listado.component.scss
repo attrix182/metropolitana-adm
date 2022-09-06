@@ -28,7 +28,33 @@
     cursor: pointer;
   }
 
+  .info {
+    background-color: #129fb4;
+    border-color: black;
+  }
+  
+  .danger {
+    background-color: #ef354a;
+  }
+  
+  button {
+    color: rgb(0, 0, 0);
+    margin: 2px;
+    height: 40px;
+    width: 40px;
+  }
+  
+  .btn:focus,
+  .btn.focus {
+    box-shadow: none !important;
+  }
 
+
+  .dias {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
 
   .card-selected{
     background-color: #129fb4;

@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-grilla.component.scss']
 })
 export class AdminGrillaComponent implements OnInit {
+  showFormAlta:boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleShow(){
+    this.showFormAlta = !this.showFormAlta;
   }
 
 }

@@ -18,12 +18,14 @@ export class AdminGrillaService {
   punto: Punto;
   private punto$: Subject<Punto>;
 
-  horario: Horario;
-  private horario$: Subject<Horario>;
-
+  horario: any;
+  private horario$: Subject<any>;
 
   hermanos: Hermano[];
   private hermanos$: Subject<Hermano[]>;
+
+  actualizarHorario$: Subject<any>;
+  
 
   constructor() {
     this.turno = null;
@@ -42,35 +44,39 @@ export class AdminGrillaService {
 
     this.hermanos = [];
     this.hermanos$ = new Subject();
+
+    this.actualizarHorario$ = new Subject();
   }
 
-  setPunto(punto:Punto){
+  setPunto(punto: Punto) {
     if (!punto) return;
     this.punto = punto;
-    console.log(punto);
     this.punto$.next(this.punto);
   }
 
-  setHorario(horario:Horario){
+  setHorario(horario: any) {
     if (!horario) return;
     this.horario = horario;
-    console.log(horario);
     this.horario$.next(this.horario);
+    this.handleActualizarHorario$();
   }
-
 
   setTurno(turno: Turno) {
     if (!turno) return;
     this.turno = turno;
-    console.log(turno);
     this.turno$.next(this.turno);
   }
 
   setHermanos(hermano: Hermano) {
     if (!hermano) return;
-    this.hermanos.push(hermano);
-    console.log(hermano);
-    this.hermanos$.next(this.hermanos);
+
+    let index = this.hermanos.findIndex((h) => h.id == hermano.id);
+    if (index == -1) {
+      this.hermanos.push(hermano);
+      this.hermanos$.next(this.hermanos);
+    } else {
+      this.hermanos$.next(this.hermanos.splice(index, 1));
+    }
   }
 
   getTurno$(): Observable<Turno> {
@@ -78,10 +84,9 @@ export class AdminGrillaService {
       punto: this.punto,
       horario: this.horario,
       hermanos: this.hermanos
-    }
-    this.setTurno(this.turno)
-    console.log(this.turno)
-    this.turno$ 
+    };
+    this.setTurno(this.turno);
+    this.turno$;
     return this.turno$.asObservable();
   }
 
@@ -97,4 +102,13 @@ export class AdminGrillaService {
     return this.hermanos$.asObservable();
   }
 
+  handleActualizarHorario$() {
+    this.actualizarHorario$.next();
+  }
+
+  getActualizarHorario$() {
+    return this.actualizarHorario$.asObservable();
+  }
+
+  //TODO: Evitar duplicador en setHermanos y agregar DIA en set Horario
 }

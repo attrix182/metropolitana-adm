@@ -1,6 +1,15 @@
 <section class="container bg-white mt-4 p-4 mb-4 rounded listado">
   <div class="filtros">Horarios</div>
 
+  <div class="dias" *ngIf="vista == 'grilla'">
+    <div *ngFor="let dia of dias">
+      <button class="btn btn-sm btn-danger btn-dia" [id]="dia" type="button" (click)="seleccionarDia(dia)">
+        {{ dia }}
+      </button>
+  
+    </div>
+  </div>
+
   <div *ngFor="let item of horarios">
     <div class="card mt-2 mb-2 p-2" *ngIf="vista !== 'grilla'">
       <div class="card-actions">

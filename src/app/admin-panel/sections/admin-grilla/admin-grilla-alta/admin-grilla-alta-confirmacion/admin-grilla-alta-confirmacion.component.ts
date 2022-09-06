@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Turno } from 'src/app/models/turno.model';
+import { AlertService } from 'src/app/shared/services/alert.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla.service';
 
 @Component({
@@ -10,8 +13,14 @@ import { AdminGrillaService } from '../../admin-grilla.service';
 export class AdminGrillaAltaConfirmacionComponent implements OnInit {
   turno: Turno;
   showTable: boolean = false;
+  loading: boolean = false;
 
-  constructor(private grillaSVC: AdminGrillaService) {}
+  constructor(
+    private grillaSVC: AdminGrillaService,
+    private storageSVC: StorageService,
+    private alertSVC: AlertService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.confeccionarTurno();
@@ -22,21 +31,32 @@ export class AdminGrillaAltaConfirmacionComponent implements OnInit {
   }
 
   setShow(turno) {
-    if (turno.horario != undefined && turno.hermanos.length > 0  && turno.punto != undefined) {
+    if (turno.horario != undefined && turno.hermanos.length > 0 && turno.punto != undefined) {
       this.showTable = true;
-      console.log("MUESTRO LOS DATOS");
     } else {
       this.showTable = false;
-      console.log("NO MUESTRO NADA");
     }
+  }
+
+  publicarTurno() {
+    this.loading = true;
+    this.storageSVC
+      .Insert('turnos', this.turno)
+      .then(() => {
+        this.loading = false;
+        this.alertSVC.alertCenter('success', 'Turno agregado exitosamente');
+        this.router.navigateByUrl('/admin-dashboard');
+      })
+      .catch(() => {
+        this.loading = false;
+        this.alertSVC.alertCenter('error', 'Error. no se pudo agregar');
+      });
   }
 
   confeccionarTurno() {
     this.grillaSVC.getTurno$().subscribe((response) => {
       this.turno = response;
       this.setShow(response);
-      console.log(this.turno);
     });
-
   }
 }

@@ -23,6 +23,7 @@ import { AdminGrillaAltaComponent } from './sections/admin-grilla/admin-grilla-a
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminGrillaAltaConfirmacionComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta-confirmacion/admin-grilla-alta-confirmacion.component';
+import { AdminGrillaListadoComponent } from './sections/admin-grilla/admin-grilla-listado/admin-grilla-listado.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.dots
@@ -46,7 +47,8 @@ const ngWizardConfig: NgWizardConfig = {
     AdminHorariosAltaComponent,
     AdminHorariosListadoComponent,
     AdminGrillaAltaComponent,
-    AdminGrillaAltaConfirmacionComponent
+    AdminGrillaAltaConfirmacionComponent,
+    AdminGrillaListadoComponent
   ],
   imports: [
     CommonModule,

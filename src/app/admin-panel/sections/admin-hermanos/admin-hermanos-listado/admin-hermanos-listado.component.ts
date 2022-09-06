@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Disponibilidad, Hermano } from 'src/app/models/hermano.model';
+import { Dias, Disponibilidad, Hermano } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
@@ -11,46 +11,77 @@ import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
   styleUrls: ['./admin-hermanos-listado.component.scss']
 })
 export class AdminHermanosListadoComponent implements OnInit {
-  @Input() hermanos: any[];
+  @Input() hermanos: Hermano[];
   @Input() hermanosSearch: any;
   @Input() vista: 'grilla' | 'hermanos';
   @Output() goToEdit = new EventEmitter<Hermano>();
   searchParam: string;
   disponibilidadShow: Disponibilidad[];
   hermanoSeleccionado: string;
-  hermanosSeleccionados:Hermano[] = [];
+  hermanosSeleccionados: Hermano[] = [];
+  hermanosDisponibles:Hermano[] = [];
 
   @ViewChild('disponibilidadModal', { read: TemplateRef })
   disponibilidadModal: TemplateRef<any>;
+  disponibilidad: any;
 
-  constructor(private storageSVC: StorageService, private alertSvc: AlertService, private modalService: NgbModal, private grillaSVC:AdminGrillaService) {}
+  constructor(
+    private storageSVC: StorageService,
+    private alertSvc: AlertService,
+    private modalService: NgbModal,
+    private grillaSVC: AdminGrillaService
+  ) {}
 
   ngOnInit(): void {
     if (this.vista == 'grilla') {
       this.storageSVC.GetAll('hermanos').subscribe((data) => {
         this.hermanos = data;
       });
+      this.getDisponibilidad();
     }
   }
 
+  getDisponibilidad() {
+    this.grillaSVC.getActualizarHorario$().subscribe(() => {
+      this.grillaSVC.getHorario$().subscribe((data) => {
+        this.disponibilidad = data;
+        this.filtrarPorDia(this.disponibilidad);
+      });
+      console.log(this.disponibilidad);
+    });
+  }
+
+  filtrarPorDia(dia) {
+    let indexDia = Dias[dia.dia];
+    this.hermanosDisponibles = []
+
+
+    this.hermanos.forEach((h) => {
+     
+      console.log(h.disponibilidad.forEach((d) => {
+       
+        if(d.dia === parseInt(indexDia)){
+          this.hermanosDisponibles.push(h)
+        }
+      }));
+    });
+    console.log(this.hermanosDisponibles);
+  }
+
   seleccionar(item) {
-    this.removeSelected(item);
-    this.hermanosSeleccionados.push(item);
-    console.log(item)
-    console.log(this.hermanosSeleccionados);
     let cardHtml = document.getElementById(item.id) as HTMLElement;
     cardHtml.classList.toggle('card-selected');
-  
-    this.grillaSVC.setHermanos(item);
-  }
-  
-  removeSelected(item) {
-    /* if (item) {
-      let cardHtml = document.getElementById(item.id) as HTMLElement;
-      cardHtml.classList.toggle('card-selected'); 
-    //eliminar
+
+    let index = this.hermanos.findIndex((h) => h.id == item.id);
+
+    console.log(index);
+    if (index == -1) {
+      this.hermanosSeleccionados.push(item);
+    } else {
+      this.hermanosSeleccionados.splice(index, 1);
     }
-    */
+
+    this.grillaSVC.setHermanos(item);
   }
 
   async delete(product: any) {
