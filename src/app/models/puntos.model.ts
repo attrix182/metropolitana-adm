@@ -1,8 +1,8 @@
 export interface Punto {
-    id: number;
+    id: string;
     nombre:string;
     direccion:string;
     descripcion?:string;
     activo:boolean;
-    fechaAlta?:Date;
+    fechaAlta?:any;
 }

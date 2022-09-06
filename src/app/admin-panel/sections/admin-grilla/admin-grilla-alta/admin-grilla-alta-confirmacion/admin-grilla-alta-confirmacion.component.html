@@ -1,0 +1,16 @@
+<table class="table" *ngIf="showTable">
+  <thead>
+    <tr>
+      <th>Horario</th>
+      <th>Punto</th>
+      <th>Hermanos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ turno.horario.horarioInicio }} - {{ turno.horario.horarioFin }}</td>
+      <td>{{ turno.punto.nombre }}</td>
+      <td><div *ngFor="let h of turno.hermanos"><li>{{h.nombre}}</li></div></td>
+    </tr>
+  </tbody>
+</table>

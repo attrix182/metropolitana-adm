@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { of } from 'rxjs';
 import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
+import { AdminGrillaAltaConfirmacionComponent } from './admin-grilla-alta-confirmacion/admin-grilla-alta-confirmacion.component';
  
 
 @Component({
@@ -9,6 +10,10 @@ import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, S
   styleUrls: ['./admin-grilla-alta.component.scss']
 })
 export class AdminGrillaAltaComponent implements OnInit {
+
+  @ViewChild(AdminGrillaAltaConfirmacionComponent) adminConfirmacion:AdminGrillaAltaConfirmacionComponent
+  
+  step:number = 1;
 
   stepStates = {
     normal: STEP_STATE.normal,
@@ -32,12 +37,17 @@ export class AdminGrillaAltaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  finalStep(){
+    this.adminConfirmacion.confeccionarTurno();
+  }
+
   showPreviousStep(event?: Event) {
     this.ngWizardService.previous();
   }
  
   showNextStep(event?: Event) {
     this.ngWizardService.next();
+
   }
  
   resetWizard(event?: Event) {
@@ -49,7 +59,7 @@ export class AdminGrillaAltaComponent implements OnInit {
   }
  
   stepChanged(args: StepChangedArgs) {
-    console.log(args.step);
+    this.finalStep();
   }
  
   isValidTypeBoolean: boolean = true;

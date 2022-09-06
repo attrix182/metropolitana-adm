@@ -19,8 +19,10 @@ import { AdminHermanosModalDisponibilidadComponent } from './sections/admin-herm
 import { AdminHorariosAltaComponent } from './sections/admin-horarios/admin-horarios-alta/admin-horarios-alta.component';
 import { AdminHorariosListadoComponent } from './sections/admin-horarios/admin-horarios-listado/admin-horarios-listado.component';
 import { AdminGrillaAltaComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta.component';
- 
+
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminGrillaAltaConfirmacionComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta-confirmacion/admin-grilla-alta-confirmacion.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.dots
@@ -43,8 +45,16 @@ const ngWizardConfig: NgWizardConfig = {
     AdminHermanosModalDisponibilidadComponent,
     AdminHorariosAltaComponent,
     AdminHorariosListadoComponent,
-    AdminGrillaAltaComponent
+    AdminGrillaAltaComponent,
+    AdminGrillaAltaConfirmacionComponent
   ],
-  imports: [CommonModule, AdminPanelRoutingModule, FormsModule, ReactiveFormsModule, NgWizardModule.forRoot(ngWizardConfig)]
+  imports: [
+    CommonModule,
+    AdminPanelRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    NgWizardModule.forRoot(ngWizardConfig)
+  ]
 })
 export class AdminPanelModule {}

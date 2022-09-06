@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Horario } from 'src/app/models/horarios.model';
+import { Horarios } from 'src/app/models/hermano.model';
+import { Horario } from 'src/app/models/horario.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
 
 @Component({
   selector: 'met-admin-horarios-listado',
@@ -10,15 +12,39 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminHorariosListadoComponent implements OnInit {
   @Input() horarios: Horario[];
+  @Input() vista: 'grilla' | 'horarios';
   @Output() setHorario = new EventEmitter<Horario>();
+  horarioSeleccionado:Horario;
   filtroSeteado: boolean;
 
 
-  constructor(private storageSVC: StorageService, private alertSVC: AlertService) { }
+  constructor(private storageSVC: StorageService, private alertSVC: AlertService, private grillaSVC:AdminGrillaService) { }
 
 
   ngOnInit(): void {
+    if (this.vista == 'grilla') {
+      this.storageSVC.GetAll('horarios').subscribe((data) => {
+        this.horarios = data;
+      });
   }
+}
+
+seleccionar(item) {
+  this.removeSelected();
+  this.horarioSeleccionado = item;
+  let cardHtml = document.getElementById(item.id) as HTMLElement;
+  cardHtml.classList.toggle('card-selected');
+
+  this.grillaSVC.setHorario(this.horarioSeleccionado);
+}
+
+removeSelected() {
+  if (this.horarioSeleccionado) {
+    let cardHtml = document.getElementById(this.horarioSeleccionado.id) as HTMLElement;
+    cardHtml.classList.toggle('card-selected');
+    this.horarioSeleccionado = null;
+  }
+}
 
   updateHorario(horario: Horario) {
     this.setHorario.emit(horario);

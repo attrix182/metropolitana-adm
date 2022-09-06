@@ -23,6 +23,17 @@
     box-shadow: 1px 1px 3px #8f8c8c;
   }
 
+  .card-grilla:hover{
+    background-color: #129fb4;
+    cursor: pointer;
+  }
+
+  .card-selected{
+    background-color: #129fb4;
+    border-color: black;
+  }
+
+
   .card-actions {
     text-align: end;
     width: 100%;

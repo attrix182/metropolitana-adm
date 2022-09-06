@@ -33,6 +33,18 @@
   }
 }
 
+.card-hermanos:hover{
+  background-color: #129fb4;
+  cursor: pointer;
+}
+
+
+
+.card-selected{
+  background-color: #129fb4;
+  border-color: black;
+}
+
 .listado {
   max-width: 400px;
 

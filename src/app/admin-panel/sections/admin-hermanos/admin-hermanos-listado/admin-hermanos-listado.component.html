@@ -1,4 +1,4 @@
-<div class="container bg-white mt-4 p-4 mb-4 rounded table-desktop">
+<div class="container bg-white mt-4 p-4 mb-4 rounded table-desktop" *ngIf="vista !== 'grilla'"> 
   <h4 align="center">Hermanos</h4>
 
   <input
@@ -27,7 +27,7 @@
         <td>{{ uno.congregacion }}</td>
         <td>{{ uno.edad }}</td>
         <td>
-          <button class="btn btn-info" (click)="showDisponibilidad(uno)"><i class="fa fa-calendar"></i></button>
+          <button class="btn btn-info" ngbTooltip="Ver disponibilidad" (click)="showDisponibilidad(uno)"><i class="fa fa-calendar"></i></button>
         </td>
         <td>
           <div class="table-actions">
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div class="cards-mobile">
+<div class="cards-mobile" *ngIf="vista !== 'grilla'">
   <div class="container bg-white mt-4 p-4 mb-4 rounded listado">
     <h4 align="center">Hermanos</h4>
 
@@ -64,7 +64,7 @@
               {{ card.nombre }}
               {{ card.apellido }}
             </div>
-            <button class="btn btn-info" (click)="showDisponibilidad(card)"><i class="fa fa-calendar"></i></button>
+            <button class="btn btn-info" ngbTooltip="Ver disponibilidad" (click)="showDisponibilidad(card)"><i class="fa fa-calendar"></i></button>
             <button class="btn btn-info" (click)="goToEditHermano(card)"><i class="fa fa-pen"></i></button>
             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
           </div>
@@ -77,6 +77,40 @@
     </div>
   </div>
 </div>
+
+
+<div class="cards-grilla" *ngIf="vista == 'grilla'">
+  <div class="container bg-white mt-4 p-4 mb-4 rounded listado">
+    <h4 align="center">Hermanos</h4>
+
+    <input
+      [(ngModel)]="searchParam"
+      (ngModelChange)="hacerBusqueda()"
+      type="text"
+      placeholder="Buscador inteligente..."
+      class="form-control mb-2"
+    />
+
+    <div class="row justify-content-center">
+      <div class="col-12" *ngFor="let card of hermanos" >
+        <div class="card card-hermanos mt-2 mb-2 p-2" [id]="card.id" (click)="seleccionar(card)">
+          <div class="card-actions">
+            <div class="card-name">
+              {{ card.nombre }}
+              {{ card.apellido }}
+            </div>
+            <button class="btn btn-info"  ngbTooltip="Ver disponibilidad" (click)="showDisponibilidad(card)"><i class="fa fa-calendar"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-2 mb-2 p-2 loading-puntos" *ngIf="!hermanos">
+        <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <ng-template #disponibilidadModal let-modal>

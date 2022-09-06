@@ -59,6 +59,7 @@ export class AdminPuntosAltaComponent extends FormValidator implements OnInit {
     this.punto = this.formGroup.value;
     this.punto.activo = this.setActivo();
     this.punto.fechaAlta = new Date();
+    this.punto.fechaAlta =   this.punto.fechaAlta.toLocaleDateString();
 
     this.storageSVC.Insert('puntos', this.punto).then(() => {
       this.alertSVC.alertTop('success', 'Punto guardado correctamente');

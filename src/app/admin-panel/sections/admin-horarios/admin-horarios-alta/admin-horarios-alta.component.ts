@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Horario } from 'src/app/models/horarios.model';
+import { Horario } from 'src/app/models/horario.model';
 import { FormValidator } from 'src/app/shared/form-validator';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
@@ -25,9 +25,6 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
 
   ngOnInit(): void {
     this.initForm();
-    setTimeout(() => {
-      console.log(this.horariosValidar);
-    }, 2000);
   }
 
   ngOnChanges() {

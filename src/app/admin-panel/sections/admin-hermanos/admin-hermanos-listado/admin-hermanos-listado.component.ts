@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Disponibilidad, Hermano } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
 
 @Component({
   selector: 'met-admin-hermanos-listado',
@@ -12,17 +13,44 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 export class AdminHermanosListadoComponent implements OnInit {
   @Input() hermanos: any[];
   @Input() hermanosSearch: any;
+  @Input() vista: 'grilla' | 'hermanos';
   @Output() goToEdit = new EventEmitter<Hermano>();
   searchParam: string;
   disponibilidadShow: Disponibilidad[];
-  hermanoSeleccionado:string;
+  hermanoSeleccionado: string;
+  hermanosSeleccionados:Hermano[] = [];
 
   @ViewChild('disponibilidadModal', { read: TemplateRef })
   disponibilidadModal: TemplateRef<any>;
 
-  constructor(private storageSVC: StorageService, private alertSvc: AlertService, private modalService: NgbModal) {}
+  constructor(private storageSVC: StorageService, private alertSvc: AlertService, private modalService: NgbModal, private grillaSVC:AdminGrillaService) {}
 
   ngOnInit(): void {
+    if (this.vista == 'grilla') {
+      this.storageSVC.GetAll('hermanos').subscribe((data) => {
+        this.hermanos = data;
+      });
+    }
+  }
+
+  seleccionar(item) {
+    this.removeSelected(item);
+    this.hermanosSeleccionados.push(item);
+    console.log(item)
+    console.log(this.hermanosSeleccionados);
+    let cardHtml = document.getElementById(item.id) as HTMLElement;
+    cardHtml.classList.toggle('card-selected');
+  
+    this.grillaSVC.setHermanos(item);
+  }
+  
+  removeSelected(item) {
+    /* if (item) {
+      let cardHtml = document.getElementById(item.id) as HTMLElement;
+      cardHtml.classList.toggle('card-selected'); 
+    //eliminar
+    }
+    */
   }
 
   async delete(product: any) {
@@ -41,7 +69,7 @@ export class AdminHermanosListadoComponent implements OnInit {
 
   showDisponibilidad(uno: Hermano) {
     this.disponibilidadShow = uno.disponibilidad;
-    this.hermanoSeleccionado = uno.nombre + ' ' + uno.apellido
+    this.hermanoSeleccionado = uno.nombre + ' ' + uno.apellido;
     this.modalService.open(this.disponibilidadModal);
   }
 

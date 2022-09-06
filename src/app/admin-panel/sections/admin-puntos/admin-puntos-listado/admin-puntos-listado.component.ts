@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Punto } from 'src/app/models/puntos.model';
+import { Turno } from 'src/app/models/turno.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
 
 @Component({
   selector: 'met-admin-puntos-listado',
@@ -10,14 +12,43 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminPuntosListadoComponent implements OnInit {
   @Input() puntos: Punto[];
+  @Input() vista: 'grilla' | 'puntos';
   @Output() setPunto = new EventEmitter<Punto>();
   filtroSeteado: boolean;
+  puntoSeleccionado: Punto;
+  turno:Turno;
 
-
-  constructor(private storageSVC: StorageService, private alertSVC: AlertService) { }
+  constructor(private storageSVC: StorageService, private alertSVC: AlertService, private grillaSVC: AdminGrillaService) {
+  }
 
   ngOnInit(): void {
+    if (this.vista == 'grilla') {
+      this.filtroSeteado = true;
+      this.storageSVC.GetAll('puntos').subscribe((data) => {
+        this.puntos = data;
+      });
+    }
+  }
+  ngAfterViewInit() {
+    if (this.vista == 'grilla') return;
     this.setFilterActivos();
+  }
+
+  seleccionarPunto(punto) {
+    this.removeSelected();
+    this.puntoSeleccionado = punto;
+    let puntoHtml = document.getElementById(punto.id) as HTMLElement;
+    puntoHtml.classList.toggle('card-selected');
+
+    this.grillaSVC.setPunto(this.puntoSeleccionado);
+  }
+
+  removeSelected() {
+    if (this.puntoSeleccionado) {
+      let puntoHtml = document.getElementById(this.puntoSeleccionado.id) as HTMLElement;
+      puntoHtml.classList.toggle('card-selected');
+      this.puntoSeleccionado = null;
+    }
   }
 
   update(punto: Punto) {

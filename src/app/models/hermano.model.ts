@@ -1,5 +1,5 @@
 export interface Hermano {
-  id: number;
+  id: string;
   nombre: string;
   apellido: string;
   fechaNacimiento: Date;
