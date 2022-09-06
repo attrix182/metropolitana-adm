@@ -19,7 +19,7 @@ export class AdminHermanosListadoComponent implements OnInit {
   disponibilidadShow: Disponibilidad[];
   hermanoSeleccionado: string;
   hermanosSeleccionados: Hermano[] = [];
-  hermanosDisponibles:Hermano[] = [];
+  hermanosDisponibles: Hermano[] = [];
 
   @ViewChild('disponibilidadModal', { read: TemplateRef })
   disponibilidadModal: TemplateRef<any>;
@@ -53,17 +53,16 @@ export class AdminHermanosListadoComponent implements OnInit {
 
   filtrarPorDia(dia) {
     let indexDia = Dias[dia.dia];
-    this.hermanosDisponibles = []
-
+    this.hermanosDisponibles = [];
 
     this.hermanos.forEach((h) => {
-     
-      console.log(h.disponibilidad.forEach((d) => {
-       
-        if(d.dia === parseInt(indexDia)){
-          this.hermanosDisponibles.push(h)
-        }
-      }));
+      console.log(
+        h.disponibilidad.forEach((d) => {
+          if (d.dia === parseInt(indexDia)) {
+            this.hermanosDisponibles.push(h);
+          }
+        })
+      );
     });
     console.log(this.hermanosDisponibles);
   }
