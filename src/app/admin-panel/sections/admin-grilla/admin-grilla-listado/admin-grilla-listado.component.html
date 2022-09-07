@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let turno of turnos">
-            <td>{{ turno.horario.dia | titlecase}}  - {{ turno.horario.horario.horarioInicio }} - {{ turno.horario.horario.horarioFin }}</td>
+            <td>  {{ turno.horario.dia.day }}/{{ turno.horario.dia.month }} - {{ turno.horario.horario.horarioInicio }} - {{ turno.horario.horario.horarioFin }}</td>
             <td>{{ turno.punto.nombre }}</td>
             <td><div *ngFor="let h of turno.hermanos"><li>{{h.nombre}}</li></div></td>
           </tr>

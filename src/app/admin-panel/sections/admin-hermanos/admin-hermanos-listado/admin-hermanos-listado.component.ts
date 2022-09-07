@@ -52,17 +52,20 @@ export class AdminHermanosListadoComponent implements OnInit {
   }
 
   filtrarPorDia(dia) {
-    let indexDia = Dias[dia.dia];
+    let date = new Date(`${dia.dia.month}` + '/' + `${dia.dia.day}` + '/' + ` ${dia.dia.year}`);
+    let indexDia = (date.getDay() - 1).toString();
+    if (indexDia == '-1') {
+      indexDia = '6';
+    }
+
     this.hermanosDisponibles = [];
 
     this.hermanos.forEach((h) => {
-      console.log(
-        h.disponibilidad.forEach((d) => {
-          if (d.dia === parseInt(indexDia)) {
-            this.hermanosDisponibles.push(h);
-          }
-        })
-      );
+      h.disponibilidad.forEach((d) => {
+        if (d.dia === parseInt(indexDia)) {
+          this.hermanosDisponibles.push(h);
+        }
+      });
     });
     console.log(this.hermanosDisponibles);
   }

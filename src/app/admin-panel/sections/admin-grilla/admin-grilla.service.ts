@@ -57,8 +57,8 @@ export class AdminGrillaService {
   setHorario(horario: any) {
     if (!horario) return;
     this.horario = horario;
-    this.horario$.next(this.horario);
     this.handleActualizarHorario$();
+    this.horario$.next(this.horario);
   }
 
   setTurno(turno: Turno) {

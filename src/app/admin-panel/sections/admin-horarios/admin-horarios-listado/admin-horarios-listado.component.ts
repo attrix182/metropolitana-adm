@@ -1,14 +1,51 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { Dias, Horarios } from 'src/app/models/hermano.model';
 import { Horario } from 'src/app/models/horario.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
+import { NgbDateStruct, NgbCalendar, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+
+const I18N_VALUES = {
+  es: {
+    weekdays: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
+    months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    weekLabel: 'Sem'
+  }
+};
+@Injectable()
+export class I18n {
+  language = 'es';
+}
+
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+  constructor(private _i18n: I18n) {
+    super();
+  }
+
+  getWeekdayLabel(weekday: number): string {
+    return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
+  }
+  getWeekLabel(): string {
+    return I18N_VALUES[this._i18n.language].weekLabel;
+  }
+  getMonthShortName(month: number): string {
+    return I18N_VALUES[this._i18n.language].months[month - 1];
+  }
+  getMonthFullName(month: number): string {
+    return this.getMonthShortName(month);
+  }
+  getDayAriaLabel(date: NgbDateStruct): string {
+    return `${date.day}-${date.month}-${date.year}`;
+  }
+}
 
 @Component({
   selector: 'met-admin-horarios-listado',
   templateUrl: './admin-horarios-listado.component.html',
-  styleUrls: ['./admin-horarios-listado.component.scss']
+  styleUrls: ['./admin-horarios-listado.component.scss'],
+  providers: [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }] // define custom NgbDatepickerI18n provider
 })
 export class AdminHorariosListadoComponent implements OnInit {
   @Input() horarios: Horario[];
@@ -18,13 +55,16 @@ export class AdminHorariosListadoComponent implements OnInit {
   diaSeleccionado: Dias;
   filtroSeteado: boolean;
   dias: string[] = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
+  model: NgbDateStruct;
+  date: { year: number; month: number };
 
   constructor(
     private storageSVC: StorageService,
     private alertSVC: AlertService,
-    private grillaSVC: AdminGrillaService
+    private grillaSVC: AdminGrillaService,
   ) {}
 
+  
   ngOnInit(): void {
     if (this.vista == 'grilla') {
       this.storageSVC.GetAll('horarios').subscribe((data) => {
@@ -33,32 +73,21 @@ export class AdminHorariosListadoComponent implements OnInit {
     }
   }
 
-  seleccionarDia(item) {
-    this.removeSelectedDia();
-    this.diaSeleccionado = item;
-    let cardHtml = document.getElementById(item) as HTMLElement;
-    cardHtml.classList.toggle('info');
-    if (!this.diaSeleccionado) return;
-    let dia = Dias[this.dias.indexOf(this.diaSeleccionado.toString())];
-    this.grillaSVC.setHorario({ dia: dia, horario: this.horarioSeleccionado });
-  }
+  onDateChange(newValue) {
+    this.removeSelected();
+}
 
-  removeSelectedDia() {
-    if (this.diaSeleccionado) {
-      let cardHtml = document.getElementById(this.diaSeleccionado.toString()) as HTMLElement;
-      cardHtml.classList.toggle('info');
-      this.diaSeleccionado = null;
-    }
-  }
+
 
   seleccionar(item) {
     this.removeSelected();
     this.horarioSeleccionado = item;
     let cardHtml = document.getElementById(item.id) as HTMLElement;
     cardHtml.classList.toggle('card-selected');
-    if (!this.diaSeleccionado) return;
-    let dia = Dias[this.dias.indexOf(this.diaSeleccionado.toString())];
-
+ 
+    // let dia = Dias[this.dias.indexOf(this.diaSeleccionado.toString())];
+    let dia = { year: this.date.year, month: this.date.month, day: this.model.day };
+    console.log(dia);
     this.grillaSVC.setHorario({ dia: dia, horario: this.horarioSeleccionado });
   }
 

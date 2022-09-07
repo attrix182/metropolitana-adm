@@ -22,6 +22,7 @@ export class AdminGrillaListadoComponent implements OnInit {
     this.storageSVC.GetAll('turnos').subscribe((turnos) => {
       this.turnos = turnos;
       this.turnosSearch = turnos;
+      console.log(this.turnos)
     });
   }
 

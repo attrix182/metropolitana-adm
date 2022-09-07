@@ -10,7 +10,7 @@
     <tbody>
       <tr>
         <td>
-          {{ turno.horario.dia | titlecase }} - {{ turno.horario.horario.horarioInicio }} -
+          {{ turno.horario.dia.day }}/{{ turno.horario.dia.month }} - {{ turno.horario.horario.horarioInicio }} -
           {{ turno.horario.horario.horarioFin }}
         </td>
         <td>{{ turno.punto.nombre }}</td>
