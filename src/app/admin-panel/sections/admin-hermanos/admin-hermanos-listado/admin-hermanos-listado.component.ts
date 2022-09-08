@@ -81,16 +81,19 @@ export class AdminHermanosListadoComponent implements OnInit {
       h.disponibilidad.forEach((d) => {
         d.horario.forEach((ho) => {
           console.log(h.nombre + ' ' + Horarios[ho]);
-          if(ho.toString() == Horarios[turnoSeleccionado.horario.turno].toString()){
-
-                if (this.hermanosDisponibles.indexOf(h) === -1) {
+          if (ho.toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
+            if (this.hermanosDisponibles.indexOf(h) === -1) {
               this.hermanosDisponibles.push(h);
             }
           }
-        })
+        });
       });
     });
-   
+
+    if(this.hermanosDisponibles.length == 0) {
+      this.alertSvc.alertCenter('info', 'No hay hermanos disponibles para ese turno')
+    }
+
     console.log(this.hermanosDisponibles);
 
     /* this.hermanosDisponiblesDias.forEach((h) => {
