@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dias, Disponibilidad, Hermano } from 'src/app/models/hermano.model';
+import { Dias, Disponibilidad, Hermano, Horarios } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
@@ -19,6 +19,7 @@ export class AdminHermanosListadoComponent implements OnInit {
   disponibilidadShow: Disponibilidad[];
   hermanoSeleccionado: string;
   hermanosSeleccionados: Hermano[] = [];
+  hermanosDisponiblesDias: Hermano[] = [];
   hermanosDisponibles: Hermano[] = [];
 
   @ViewChild('disponibilidadModal', { read: TemplateRef })
@@ -51,23 +52,55 @@ export class AdminHermanosListadoComponent implements OnInit {
     });
   }
 
-  filtrarPorDia(dia) {
-    let date = new Date(`${dia.dia.month}` + '/' + `${dia.dia.day}` + '/' + ` ${dia.dia.year}`);
+  filtrarPorDia(turnoSeleccionado) {
+    let date = new Date(
+      `${turnoSeleccionado.dia.month}` + '/' + `${turnoSeleccionado.dia.day}` + '/' + ` ${turnoSeleccionado.dia.year}`
+    );
     let indexDia = (date.getDay() - 1).toString();
     if (indexDia == '-1') {
       indexDia = '6';
     }
 
-    this.hermanosDisponibles = [];
+    this.hermanosDisponiblesDias = [];
 
     this.hermanos.forEach((h) => {
       h.disponibilidad.forEach((d) => {
         if (d.dia === parseInt(indexDia)) {
-          this.hermanosDisponibles.push(h);
+          this.hermanosDisponiblesDias.push(h);
         }
       });
     });
+    this.filtrarPorHorario(turnoSeleccionado);
+    // console.log(this.hermanosDisponiblesDias);
+  }
+
+  filtrarPorHorario(turnoSeleccionado: any) {
+    this.hermanosDisponibles = [];
+
+    this.hermanosDisponiblesDias.forEach((h) => {
+      h.disponibilidad.forEach((d) => {
+        d.horario.forEach((ho) => {
+          console.log(h.nombre + ' ' + Horarios[ho]);
+          if(ho.toString() == Horarios[turnoSeleccionado.horario.turno].toString()){
+
+                if (this.hermanosDisponibles.indexOf(h) === -1) {
+              this.hermanosDisponibles.push(h);
+            }
+          }
+        })
+      });
+    });
+   
     console.log(this.hermanosDisponibles);
+
+    /* this.hermanosDisponiblesDias.forEach((h) => {
+      h.disponibilidad.forEach((d) => {
+        d.horario.some((h) => h.toString() == Horarios[turnoSeleccionado.horario.turno]);
+        console.log(turnoSeleccionado.horario.turno);
+        this.hermanosDisponibles.push(h);
+      });
+      console.log(this.hermanosDisponibles);
+    }); */
   }
 
   seleccionar(item) {

@@ -40,6 +40,24 @@
         </div>
       </div>
     </div>
+
+    <!--    Turno Etiqueta    -->
+    <div class="col-md-12 text-center"  style="display: flex; justify-content: center;">
+      <div class="form-group col-md-4">
+        <label for="inputState">Turno</label>
+        <select id="inputState"    [class]="isValidField('turno')" class="form-control" formControlName="turno">
+   
+           <option *ngFor="let opt of horarios" [value]="opt.key" [ngValue]="opt.key">{{opt.value}}</option>
+
+         <option selected disabled>Seleccione turno</option>
+        </select>
+        <span *ngIf="debeMostrarError('turno')" class="invalid-feedback">
+          {{ obtenerTextoError('turno') }}
+        </span>
+      </div>
+    </div>
+  
+
     <div class="row">
       <div class="col-md-12 text-center mt-4">
         <button
@@ -54,5 +72,7 @@
         </button>
       </div>
     </div>
+
+    
   </form>
 </section>

@@ -12,7 +12,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 })
 export class AdminHorariosAltaComponent extends FormValidator implements OnInit {
   horario: Horario;
-
+  horarios: any[];
   showErrorDisponibilidad: boolean = false;
   loading: boolean = false;
   edit: boolean = false;
@@ -25,6 +25,11 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
 
   ngOnInit(): void {
     this.initForm();
+    this.setHorarios();
+  }
+
+  setHorarios(){
+this.horarios = [{key: 'M', value: 'Mañana'}, {key: 'MD', value:'Mediodia'}, {key: 'T', value: 'Tarde'}, {key: 'N', value: 'Noche'}]
   }
 
   ngOnChanges() {
@@ -32,7 +37,8 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
       this.edit = true;
       this.formGroup.setValue({
         horarioInicio: this.horarioModificacion.horarioInicio,
-        horarioFin: this.horarioModificacion.horarioFin
+        horarioFin: this.horarioModificacion.horarioFin,
+        turno: this.horarioModificacion.turno
       });
     }
   }
@@ -53,7 +59,8 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
   }
 
   saveHorario() {
-    if (this.loading) return;
+
+     if (this.loading) return;
     this.loading = true;
     if (this.validarExistencia()) {
       this.alertSVC.alertTop('error', 'Ese horario ya existe');
@@ -73,7 +80,7 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
           this.loading = false;
         });
       }
-    }
+    } 
   }
 
   validarExistencia(): boolean {
@@ -89,14 +96,16 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
   initForm() {
     this.formGroup = this.FB.group({
       horarioInicio: ['', Validators.required],
-      horarioFin: ['', Validators.required]
+      horarioFin: ['', Validators.required],
+      turno: ['', Validators.required],
     });
   }
 
   resetForm() {
     this.formGroup.setValue({
       horarioInicio: '',
-      horarioFin: ''
+      horarioFin: '',
+      turno: ''
     });
   }
 
@@ -107,6 +116,9 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
       },
       horarioFin: {
         required: 'El horario de fin es requerido'
+      },
+      turno: {
+        required: 'El turno es requerido'
       }
     };
   }

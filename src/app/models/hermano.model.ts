@@ -22,12 +22,12 @@ export interface Disponibilidad {
 }
 
 export enum Horarios {
-  NP,
   M,
   MD,
   T,
   N,
-  TD
+  TD,
+  NP
 }
 
 export enum Dias {
