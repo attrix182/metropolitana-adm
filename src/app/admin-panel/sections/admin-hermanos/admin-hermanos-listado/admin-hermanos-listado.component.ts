@@ -48,7 +48,6 @@ export class AdminHermanosListadoComponent implements OnInit {
         this.disponibilidad = data;
         this.filtrarPorDia(this.disponibilidad);
       });
-      console.log(this.disponibilidad);
     });
   }
 
@@ -71,7 +70,7 @@ export class AdminHermanosListadoComponent implements OnInit {
       });
     });
     this.filtrarPorHorario(turnoSeleccionado);
-    // console.log(this.hermanosDisponiblesDias);
+
   }
 
   filtrarPorHorario(turnoSeleccionado: any) {
@@ -80,7 +79,6 @@ export class AdminHermanosListadoComponent implements OnInit {
     this.hermanosDisponiblesDias.forEach((h) => {
       h.disponibilidad.forEach((d) => {
         d.horario.forEach((ho) => {
-          console.log(h.nombre + ' ' + Horarios[ho + 1]);
           if ((ho + 1).toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
             if (this.hermanosDisponibles.indexOf(h) === -1) {
               this.hermanosDisponibles.push(h);
@@ -93,17 +91,6 @@ export class AdminHermanosListadoComponent implements OnInit {
     if(this.hermanosDisponibles.length == 0) {
       this.alertSvc.alertCenter('info', 'No hay hermanos disponibles para ese turno')
     }
-
-    console.log(this.hermanosDisponibles);
-
-    /* this.hermanosDisponiblesDias.forEach((h) => {
-      h.disponibilidad.forEach((d) => {
-        d.horario.some((h) => h.toString() == Horarios[turnoSeleccionado.horario.turno]);
-        console.log(turnoSeleccionado.horario.turno);
-        this.hermanosDisponibles.push(h);
-      });
-      console.log(this.hermanosDisponibles);
-    }); */
   }
 
   seleccionar(item) {
@@ -112,7 +99,6 @@ export class AdminHermanosListadoComponent implements OnInit {
 
     let index = this.hermanos.findIndex((h) => h.id == item.id);
 
-    console.log(index);
     if (index == -1) {
       this.hermanosSeleccionados.push(item);
     } else {

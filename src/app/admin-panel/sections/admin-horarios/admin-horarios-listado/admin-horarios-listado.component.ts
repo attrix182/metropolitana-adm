@@ -85,9 +85,7 @@ export class AdminHorariosListadoComponent implements OnInit {
     let cardHtml = document.getElementById(item.id) as HTMLElement;
     cardHtml.classList.toggle('card-selected');
  
-    // let dia = Dias[this.dias.indexOf(this.diaSeleccionado.toString())];
     let dia = { year: this.date.year, month: this.date.month, day: this.model.day };
-    console.log(dia);
     this.grillaSVC.setHorario({ dia: dia, horario: this.horarioSeleccionado });
   }
 
