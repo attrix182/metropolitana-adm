@@ -80,8 +80,8 @@ export class AdminHermanosListadoComponent implements OnInit {
     this.hermanosDisponiblesDias.forEach((h) => {
       h.disponibilidad.forEach((d) => {
         d.horario.forEach((ho) => {
-          console.log(h.nombre + ' ' + Horarios[ho]);
-          if (ho.toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
+          console.log(h.nombre + ' ' + Horarios[ho + 1]);
+          if ((ho + 1).toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
             if (this.hermanosDisponibles.indexOf(h) === -1) {
               this.hermanosDisponibles.push(h);
             }
