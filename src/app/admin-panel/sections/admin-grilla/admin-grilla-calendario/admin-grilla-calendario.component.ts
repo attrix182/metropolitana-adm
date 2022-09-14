@@ -37,7 +37,7 @@ export class AdminGrillaCalendarioComponent {
 
   turnos: any[];
 
-  turnosFormateados: any[] = [];
+  turnoFormateado: any;
 
   view: CalendarView = CalendarView.Month;
 
@@ -72,6 +72,7 @@ export class AdminGrillaCalendarioComponent {
       } else {
         this.activeDayIsOpen = true;
       }
+      console.log(events);
       this.viewDate = date;
     }
   }
@@ -92,6 +93,8 @@ export class AdminGrillaCalendarioComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
+    let id = this.modalData.event.id
+    this.getById(id)
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
@@ -118,17 +121,16 @@ export class AdminGrillaCalendarioComponent {
   formatHorarios() {
     this.turnos.forEach((turno) => {
       let horario = new Date(`${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year}`)
-      this.turnosFormateados.push({ id: turno.id, horario });
-      this.addEvent(turno.id, horario)
+      this.addEvent(turno, horario)
     });
-    console.log(this.turnosFormateados);
   }
 
-  addEvent(id, date): void {
+  addEvent(turno, date): void {
     this.events = [
       ...this.events,
       {
-        title: id,
+        title: turno.punto.nombre,
+        id: turno.id,
         start: startOfDay(date),
         end: endOfDay(date),
         color: colors.red,
@@ -140,4 +142,10 @@ export class AdminGrillaCalendarioComponent {
       },
     ];
   }
+
+  getById(id){
+    this.turnoFormateado = this.turnos.find(x => x.id === id)
+    console.log(this.turnoFormateado);
+  }
+
 }
