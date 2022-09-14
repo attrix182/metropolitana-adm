@@ -6,6 +6,9 @@
     <div *ngIf="!showFormAlta">Alta de turno</div>
   </button>
 
-   
-    <met-admin-grilla-listado  *ngIf="!showFormAlta"></met-admin-grilla-listado>
+
+  <met-admin-grilla-listado  *ngIf="!showFormAlta"></met-admin-grilla-listado> 
+  <met-admin-grilla-calendario  *ngIf="!showFormAlta"></met-admin-grilla-calendario>
+<!--    
+    <met-admin-grilla-listado  *ngIf="!showFormAlta"></met-admin-grilla-listado> -->
     <met-admin-grilla-alta  *ngIf="showFormAlta"></met-admin-grilla-alta>

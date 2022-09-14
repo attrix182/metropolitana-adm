@@ -70,7 +70,6 @@ export class AdminHermanosListadoComponent implements OnInit {
       });
     });
     this.filtrarPorHorario(turnoSeleccionado);
-
   }
 
   filtrarPorHorario(turnoSeleccionado: any) {

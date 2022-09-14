@@ -11,16 +11,6 @@ body{
     background-color: $color-background;
 }
 
-button{
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5em;
-}
-
-.rounded {
-    border-radius: 20px !important;
-    box-shadow: 1px 1px 15px #8f8c8c;
-  }
-
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

@@ -15,9 +15,7 @@
         </td>
         <td>{{ turno.punto.nombre }}</td>
         <td>
-          <div *ngFor="let h of turno.hermanos">
-            <li>{{ h.nombre }}</li>
-          </div>
+          <div *ngFor="let h of turno.hermanos"><li style="text-align:center;">{{h.nombre}} {{h.apellido}}</li></div>
         </td>
       </tr>
     </tbody>

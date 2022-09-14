@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Turno } from 'src/app/models/turno.model';
+import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
@@ -10,9 +11,9 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 export class AdminGrillaListadoComponent implements OnInit {
   searchParam: string;
   turnosSearch: Turno[];
-  turnos: Turno[] = [];
+  turnos: Turno[];
 
-  constructor(private storageSVC: StorageService) {}
+  constructor(private storageSVC: StorageService, private alertSvc:AlertService) {}
 
   ngOnInit(): void {
     this.getTurnos();
@@ -23,6 +24,16 @@ export class AdminGrillaListadoComponent implements OnInit {
       this.turnos = turnos;
       this.turnosSearch = turnos;
     });
+  }
+
+  async delete(turno: Turno) {
+    let confirm: any = false;
+    confirm = await this.alertSvc.confirmAlert();
+    if (confirm) {
+      this.storageSVC.Delete('turnos', turno.id).then(() => {
+        this.alertSvc.alertCenter('info', 'El Turno ha sido eliminado');
+      });
+    }
   }
 
   hacerBusqueda() {

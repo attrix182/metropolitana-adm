@@ -24,10 +24,19 @@ import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminGrillaAltaConfirmacionComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta-confirmacion/admin-grilla-alta-confirmacion.component';
 import { AdminGrillaListadoComponent } from './sections/admin-grilla/admin-grilla-listado/admin-grilla-listado.component';
-
+import { AdminGrillaCalendarioComponent } from './sections/admin-grilla/admin-grilla-calendario/admin-grilla-calendario.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { BrowserModule } from '@angular/platform-browser';
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.dots
 };
+
+registerLocaleData(localeEs);
+
 @NgModule({
   declarations: [
     AdminPanelComponent,
@@ -48,7 +57,8 @@ const ngWizardConfig: NgWizardConfig = {
     AdminHorariosListadoComponent,
     AdminGrillaAltaComponent,
     AdminGrillaAltaConfirmacionComponent,
-    AdminGrillaListadoComponent
+    AdminGrillaListadoComponent,
+    AdminGrillaCalendarioComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +66,8 @@ const ngWizardConfig: NgWizardConfig = {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    NgWizardModule.forRoot(ngWizardConfig)
+    NgWizardModule.forRoot(ngWizardConfig),
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ]
 })
 export class AdminPanelModule {}

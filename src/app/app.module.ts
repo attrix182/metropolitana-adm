@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminPanelModule } from './admin-panel/admin-panel.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,9 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     AdminPanelModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [BrowserModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

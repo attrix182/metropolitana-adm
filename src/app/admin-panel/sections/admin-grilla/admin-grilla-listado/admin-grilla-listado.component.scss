@@ -18,3 +18,18 @@
     display: flex;
     justify-content: center;
   }
+
+  .loading-turnos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 541px) {
+    .table-actions-responsive {
+      visibility: hidden;
+      display: none;
+    }
+  }
+  
