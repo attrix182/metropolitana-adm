@@ -8,6 +8,7 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
+          ngbTooltip="Mes anterior"
         >
           Anterior
         </div>
@@ -18,6 +19,7 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
+          ngbTooltip="Mes siguiente"
         >
           Siguiente
         </div>
@@ -61,6 +63,7 @@
       [refresh]="refresh"
       [weekStartsOn]="startOn"
       [weekendDays]="weekendDays"
+      [dayStartHour]="8"
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
     >
@@ -70,15 +73,24 @@
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h5 class="modal-title">{{ modalData?.event.title }}</h5>
-    <button type="button" class="close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
+    <h5 class="modal-title">
+      {{ turnoFormateado.horario.dia.day }}/{{ turnoFormateado.horario.dia.month }} - {{ modalData?.event.title }}
+    </h5>
+    <button type="button" class="close"  (click)="delete(turnoFormateado.id)">
+      <span aria-hidden="true" class="text-danger"> <i ngbTooltip="Eliminar Turno" class="fa fa-trash"></i></span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body text-center">
     <div>
-      Data:
-      <pre>{{ turnoFormateado| json }}</pre>
+      Punto:
+      {{ turnoFormateado.punto.nombre }}
+      <br />
+      De {{ turnoFormateado.horario.horario.horarioInicio }}, hasta
+      {{ turnoFormateado.horario.horario.horarioFin }}
+
+      <br />
+      Hermanos:
+      <div *ngFor="let h of turnoFormateado.hermanos">{{ h.nombre }} {{ h.apellido }}</div>
     </div>
   </div>
   <div class="modal-footer">

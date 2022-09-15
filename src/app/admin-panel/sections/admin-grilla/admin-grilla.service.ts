@@ -25,9 +25,14 @@ export class AdminGrillaService {
   private hermanos$: Subject<Hermano[]>;
 
   actualizarHorario$: Subject<any>;
-  
+  view:string = ''
+  private view$: Subject<string>;
+
 
   constructor() {
+    this.view = '';
+    this.view$ = new Subject();
+
     this.turno = null;
     this.turno$ = new Subject();
 
@@ -47,6 +52,17 @@ export class AdminGrillaService {
 
     this.actualizarHorario$ = new Subject();
   }
+
+  setView(viewType:string) {
+    if (!viewType) return;
+    this.view = viewType;
+    this.view$.next(viewType);
+  }
+
+  getView$(): Observable<string> {
+    return this.view$.asObservable();
+  }
+
 
   setPunto(punto: Punto) {
     if (!punto) return;
@@ -108,6 +124,13 @@ export class AdminGrillaService {
 
   getActualizarHorario$() {
     return this.actualizarHorario$.asObservable();
+  }
+
+  resetAll(){
+    this.hermanos = [];
+    this.horario = null;
+    this.punto = null;
+    this.turno = null;
   }
 
   //TODO: Evitar duplicador en setHermanos y agregar DIA en set Horario

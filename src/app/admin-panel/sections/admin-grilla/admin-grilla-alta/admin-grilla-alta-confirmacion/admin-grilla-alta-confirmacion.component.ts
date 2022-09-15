@@ -19,7 +19,8 @@ export class AdminGrillaAltaConfirmacionComponent implements OnInit {
     private grillaSVC: AdminGrillaService,
     private storageSVC: StorageService,
     private alertSVC: AlertService,
-    private router: Router
+    private router: Router,
+    private adminGrillaService: AdminGrillaService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +46,10 @@ export class AdminGrillaAltaConfirmacionComponent implements OnInit {
       .then(() => {
         this.loading = false;
         this.alertSVC.alertCenter('success', 'Turno agregado exitosamente');
-        this.router.navigateByUrl('/admin-dashboard');
+        this.adminGrillaService.resetAll();
+        setTimeout(() => {
+          this.adminGrillaService.setView('listado');
+        }, 150);
       })
       .catch(() => {
         this.loading = false;

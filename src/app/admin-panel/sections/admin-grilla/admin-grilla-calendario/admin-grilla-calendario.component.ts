@@ -11,6 +11,7 @@ import {
 } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { AlertService } from 'src/app/shared/services/alert.service';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -57,13 +58,11 @@ export class AdminGrillaCalendarioComponent {
 
   refresh = new Subject<void>();
 
-  events: CalendarEvent[] = [
-    
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal, private storageSVC: StorageService) {}
+  constructor(private modal: NgbModal, private storageSVC: StorageService, private alertSvc: AlertService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -72,7 +71,6 @@ export class AdminGrillaCalendarioComponent {
       } else {
         this.activeDayIsOpen = true;
       }
-      console.log(events);
       this.viewDate = date;
     }
   }
@@ -93,8 +91,8 @@ export class AdminGrillaCalendarioComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    let id = this.modalData.event.id
-    this.getById(id)
+    let id = this.modalData.event.id;
+    this.getById(id);
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
@@ -113,39 +111,58 @@ export class AdminGrillaCalendarioComponent {
   getTurnos() {
     this.storageSVC.GetAll('turnos').subscribe((turnos) => {
       this.turnos = turnos;
-      console.log(turnos);
       this.formatHorarios();
     });
   }
 
   formatHorarios() {
+    console.log(this.turnos)
     this.turnos.forEach((turno) => {
-      let horario = new Date(`${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year}`)
-      this.addEvent(turno, horario)
+      let horarioInicio = new Date(
+        `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioInicio}:00`
+      );
+      let horarioFin = new Date(
+        `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioFin}:00`
+      );
+      this.addEvent(turno, horarioInicio, horarioFin);
     });
   }
 
-  addEvent(turno, date): void {
+  addEvent(turno, horarioInicio, horarioFin): void {
     this.events = [
       ...this.events,
       {
         title: turno.punto.nombre,
         id: turno.id,
-        start: startOfDay(date),
-        end: endOfDay(date),
+        start: horarioInicio,
+        end: horarioFin,
         color: colors.red,
         draggable: true,
         resizable: {
           beforeStart: true,
-          afterEnd: true,
-        },
-      },
+          afterEnd: true
+        }
+      }
     ];
+    console.log(this.events);
   }
 
-  getById(id){
-    this.turnoFormateado = this.turnos.find(x => x.id === id)
+  getById(id) {
+    this.turnoFormateado = this.turnos.find((x) => x.id === id);
     console.log(this.turnoFormateado);
   }
 
+  async delete(id) {
+    let confirm: any = false;
+    confirm = await this.alertSvc.confirmAlert();
+    if (confirm) {
+      this.storageSVC.Delete('turnos', id).then(() => {
+      this.refresh.next();
+        this.alertSvc.alertCenter('info', 'El Turno ha sido eliminado');
+        this.modal.dismissAll();
+      });
+    }
+  }
+
+  
 }
