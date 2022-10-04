@@ -44,6 +44,7 @@ export class AdminGrillaCalendarioComponent {
   showForm: boolean = false;
   loading:boolean = false;
   informeCargado:any = null;
+  informes:any = undefined;
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -83,7 +84,6 @@ export class AdminGrillaCalendarioComponent {
   getInformeById(){
    this.storageSVC.GetByParameter('informes','id',this.turnoFormateado.id).subscribe( (informe) =>{
      informe ? this.informeCargado = informe[0] : this.informeCargado = false;
-     console.log(this.informeCargado)
    })
   }
 
@@ -141,7 +141,15 @@ export class AdminGrillaCalendarioComponent {
 
   ngOnInit(): void {
     this.getTurnos();
+    this.getInformes();
     this.initForm();
+  }
+
+  getInformes(){
+    this.storageSVC.GetAll('informes').subscribe((informes) => {
+      this.informes = informes;
+      this.formatHorarios();
+    });
   }
 
   getTurnos() {
@@ -152,7 +160,6 @@ export class AdminGrillaCalendarioComponent {
   }
 
   formatHorarios() {
-    console.log(this.turnos);
     this.turnos.forEach((turno) => {
       let horarioInicio = new Date(
         `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioInicio}:00`
@@ -167,7 +174,12 @@ export class AdminGrillaCalendarioComponent {
       );
       if (diaTurno < hoy) {
         this.turnos.find((t) => t == turno).past = true;
-        this.addEvent(turno, horarioInicio, horarioFin, colors.green);
+        if(this.informes.find((x:any)=> x.turno.id == turno.id) ){
+          this.addEvent(turno, horarioInicio, horarioFin, colors.yellow);
+        }else{
+          this.addEvent(turno, horarioInicio, horarioFin, colors.green);
+        }
+        
       } else {
         this.addEvent(turno, horarioInicio, horarioFin, colors.red);
       }
@@ -191,12 +203,10 @@ export class AdminGrillaCalendarioComponent {
         }
       }
     ];
-    console.log(this.events);
   }
 
   getById(id) {
     this.turnoFormateado = this.turnos.find((x) => x.id === id);
-    console.log(this.turnoFormateado);
   }
 
   async delete(id) {
