@@ -40,7 +40,10 @@
     </div>
   </div>
   <br />
-  <div [ngSwitch]="view">
+  <div class="mt-2 mb-2 p-2 loading-turnos" *ngIf="!loaded">
+    <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
+  </div>
+  <div [ngSwitch]="view" *ngIf="loaded">
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
       [weekStartsOn]="startOn"
@@ -76,7 +79,7 @@
     <h5 class="modal-title">
       {{ turnoFormateado.horario.dia.day }}/{{ turnoFormateado.horario.dia.month }} - {{ modalData?.event.title }}
     </h5>
-    <button type="button" class="close"  (click)="delete(turnoFormateado.id)">
+    <button type="button" class="close" (click)="delete(turnoFormateado.id)">
       <span aria-hidden="true" class="text-danger"> <i ngbTooltip="Eliminar Turno" class="fa fa-trash"></i></span>
     </button>
   </div>
@@ -92,6 +95,35 @@
       Hermanos:
       <div *ngFor="let h of turnoFormateado.hermanos">{{ h.nombre }} {{ h.apellido }}</div>
     </div>
+
+    <hr *ngIf="turnoFormateado.past" />
+    
+    <section class="mt-2 col-6 center" *ngIf="turnoFormateado.past && !informeCargado">
+      <form [formGroup]="formInforme">
+        <label for="">Publicaciones</label>
+        <input formControlName="publicaciones" placeholder="Publicaciones" class="form-control" type="number" />
+        <label for="">Videos</label>
+        <input formControlName="videos" placeholder="Videos" class="form-control" type="number" />
+        <div class="mt-2">
+          <button class="btn btn-success" (click)="saveInforme()" [disabled]="formInforme.invalid" *ngIf="!loading">
+            Guardar
+          </button>
+          <button class="btn btn-success" (click)="saveInforme()" disabled *ngIf="loading">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section *ngIf="informeCargado">
+      <div class="text-center">
+        <h4>Publicaciones: {{informeCargado.publicaciones}}</h4>
+        <h4>Videos: {{informeCargado.videos}}</h4>
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="editInforme()">Editar</button>
+    </section>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>

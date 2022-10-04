@@ -72,6 +72,7 @@ export class AdminHermanosAltaComponent extends FormValidator implements OnInit 
   updateHermano() {
     let hermanoModificado = this.formGroup.value;
     let id = this.hermanoToEdit.id.toString();
+    console.log(hermanoModificado)
     this.formatHermano();
       this.storageSVC.Update(id, 'hermanos', hermanoModificado).then(() => {
         this.alertSVC.alertTop('success', 'Hermano modificado correctamente');

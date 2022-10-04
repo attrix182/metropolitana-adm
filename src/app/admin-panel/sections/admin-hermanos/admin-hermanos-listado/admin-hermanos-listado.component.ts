@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Dias, Disponibilidad, Hermano, Horarios } from 'src/app/models/hermano.model';
+import { Disponibilidad, Hermano, Horarios } from 'src/app/models/hermano.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
@@ -78,7 +78,7 @@ export class AdminHermanosListadoComponent implements OnInit {
     this.hermanosDisponiblesDias.forEach((h) => {
       h.disponibilidad.forEach((d) => {
         d.horario.forEach((ho) => {
-          if ((ho + 1).toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
+          if ((ho).toString() == Horarios[turnoSeleccionado.horario.turno].toString()) {
             if (this.hermanosDisponibles.indexOf(h) === -1) {
               this.hermanosDisponibles.push(h);
             }

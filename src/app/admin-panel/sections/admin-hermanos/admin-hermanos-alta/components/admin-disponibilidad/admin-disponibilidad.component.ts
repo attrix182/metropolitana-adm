@@ -26,9 +26,29 @@ export class AdminDisponibilidadComponent implements OnInit {
 
   ngAfterViewInit() {
     if (this.disponibilidadEdit) {
+      this.setDisponibilidadEdit();
+    }
+    /*   if (this.disponibilidadEdit) {
       this.reset();
       this.setShowDias();
-    }
+    } */
+  }
+
+  setDisponibilidadEdit() {
+    console.log(this.disponibilidadEdit);
+    this.disponibilidad = this.disponibilidadEdit;
+    console.log(this.disponibilidad);
+
+    this.disponibilidad.forEach((d) => {
+      let dia = Dias[d.dia];
+      if (d.dia == 1 || d.dia == 2) {
+        if (d.dia == 1) dia = 'Ma';
+        if (d.dia == 2) dia = 'Mi';
+      }
+      console.log(dia)
+      this.changeClassDia(dia); 
+    });
+      
   }
 
   checkFinDeSemana() {
@@ -60,6 +80,10 @@ export class AdminDisponibilidadComponent implements OnInit {
     this.sendDisponibilidad();
     this.checkFinDeSemana();
 
+    this.changeClassDia(unDia);
+  }
+
+  changeClassDia(unDia) {
     let btnDia = document.getElementById(unDia) as HTMLElement;
 
     if (btnDia.classList.contains('btn-success')) {
@@ -72,7 +96,7 @@ export class AdminDisponibilidadComponent implements OnInit {
   agregarQuitarHorarioInit(unHorario: any, dia: number) {
     if (unHorario.length > 0) {
       unHorario.forEach((h) => {
-        let btnH = document.getElementById(Horarios[h + 1] + dia) as HTMLElement;
+        let btnH = document.getElementById(Horarios[h] + dia) as HTMLElement;
         if (btnH) {
           btnH.classList.replace('btn-danger', 'btn-success');
         }
@@ -104,7 +128,7 @@ export class AdminDisponibilidadComponent implements OnInit {
 
   setShowDias() {
     this.onReset();
-    return; //Parche momentaneo
+    console.log(this.disponibilidadEdit);
     this.disponibilidadEdit.forEach((d) => {
       let dia = Dias[d.dia];
       if (d.dia == 1 || d.dia == 2) {
@@ -187,6 +211,7 @@ export class AdminDisponibilidadComponent implements OnInit {
   }
 
   sendDisponibilidad() {
+    console.log(this.disponibilidad);
     this.disponibilidadSVC.setDisponibilidad(this.disponibilidad);
   }
 }

@@ -77,7 +77,7 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
 
   agregarQuitarHorario(unHorario: any, dia: number) {
     unHorario.forEach((h) => {
-      let btnH = document.getElementById(Horarios[h + 1] + dia) as HTMLElement;
+      let btnH = document.getElementById(Horarios[h] + dia) as HTMLElement;
       if (btnH) {
         btnH.classList.replace('btn-danger', 'btn-success');
       }
@@ -85,6 +85,7 @@ export class AdminHermanosModalDisponibilidadComponent implements AfterViewInit 
   }
 
   setShowDias() {
+    console.log(this.disponibilidadShow);
     this.setDisabled();
     this.disponibilidadShow.forEach((d) => {
       let dia = Dias[d.dia];

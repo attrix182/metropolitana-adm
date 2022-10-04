@@ -2,16 +2,11 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@ang
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-  DAYS_OF_WEEK
-} from 'angular-calendar';
+import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
 import { EventColor } from 'calendar-utils';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AlertService } from 'src/app/shared/services/alert.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 const colors: Record<string, EventColor> = {
   red: {
@@ -25,6 +20,10 @@ const colors: Record<string, EventColor> = {
   yellow: {
     primary: '#e3bc08',
     secondary: '#FDF1BA'
+  },
+  green: {
+    primary: '#32CD32',
+    secondary: '#baf7ba'
   }
 };
 
@@ -37,17 +36,19 @@ export class AdminGrillaCalendarioComponent {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   turnos: any[];
-
   turnoFormateado: any;
+  loaded: boolean = false;
+  refresh = new Subject<void>();
+
+  formInforme: FormGroup;
+  showForm: boolean = false;
+  loading:boolean = false;
+  informeCargado:any = null;
 
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   locale: string = 'es';
-
   startOn = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
@@ -56,13 +57,46 @@ export class AdminGrillaCalendarioComponent {
     event: CalendarEvent;
   };
 
-  refresh = new Subject<void>();
-
   events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = false;
 
-  constructor(private modal: NgbModal, private storageSVC: StorageService, private alertSvc: AlertService) {}
+  constructor(
+    private modal: NgbModal,
+    private storageSVC: StorageService,
+    private alertSvc: AlertService,
+    private fb: FormBuilder
+  ) {}
+
+  initForm() {
+
+    this.formInforme = this.fb.group({
+      publicaciones: ['', [Validators.required]],
+      videos: ['', [Validators.required]],
+    });
+  }
+
+  editInforme(){
+    this.showForm = true;
+  }
+
+  getInformeById(){
+   this.storageSVC.GetByParameter('informes','id',this.turnoFormateado.id).subscribe( (informe) =>{
+     informe ? this.informeCargado = informe[0] : this.informeCargado = false;
+     console.log(this.informeCargado)
+   })
+  }
+
+  saveInforme(){
+    this.loading = true;
+    let informe = this.formInforme.value
+    informe.turno = this.turnoFormateado
+    informe.id = this.turnoFormateado.id
+    this.storageSVC.InsertCustomID('informes', informe.id, informe).then( ()=>{
+      this.loading = false;
+      this.alertSvc.alertCenter('success', '¡Informe guardado!')
+    } )
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -94,6 +128,7 @@ export class AdminGrillaCalendarioComponent {
     let id = this.modalData.event.id;
     this.getById(id);
     this.modal.open(this.modalContent, { size: 'lg' });
+    this.getInformeById()
   }
 
   setView(view: CalendarView) {
@@ -106,6 +141,7 @@ export class AdminGrillaCalendarioComponent {
 
   ngOnInit(): void {
     this.getTurnos();
+    this.initForm();
   }
 
   getTurnos() {
@@ -116,7 +152,7 @@ export class AdminGrillaCalendarioComponent {
   }
 
   formatHorarios() {
-    console.log(this.turnos)
+    console.log(this.turnos);
     this.turnos.forEach((turno) => {
       let horarioInicio = new Date(
         `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioInicio}:00`
@@ -124,11 +160,22 @@ export class AdminGrillaCalendarioComponent {
       let horarioFin = new Date(
         `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioFin}:00`
       );
-      this.addEvent(turno, horarioInicio, horarioFin);
+
+      let hoy = new Date();
+      let diaTurno = new Date(
+        `${turno.horario.dia.month}/${turno.horario.dia.day}/${turno.horario.dia.year} ${turno.horario.horario.horarioInicio}:00`
+      );
+      if (diaTurno < hoy) {
+        this.turnos.find((t) => t == turno).past = true;
+        this.addEvent(turno, horarioInicio, horarioFin, colors.green);
+      } else {
+        this.addEvent(turno, horarioInicio, horarioFin, colors.red);
+      }
     });
+    this.loaded = true;
   }
 
-  addEvent(turno, horarioInicio, horarioFin): void {
+  addEvent(turno, horarioInicio, horarioFin, color): void {
     this.events = [
       ...this.events,
       {
@@ -136,7 +183,7 @@ export class AdminGrillaCalendarioComponent {
         id: turno.id,
         start: horarioInicio,
         end: horarioFin,
-        color: colors.red,
+        color: color,
         draggable: true,
         resizable: {
           beforeStart: true,
@@ -157,12 +204,10 @@ export class AdminGrillaCalendarioComponent {
     confirm = await this.alertSvc.confirmAlert();
     if (confirm) {
       this.storageSVC.Delete('turnos', id).then(() => {
-      this.refresh.next();
+        this.refresh.next();
         this.alertSvc.alertCenter('info', 'El Turno ha sido eliminado');
         this.modal.dismissAll();
       });
     }
   }
-
-  
 }

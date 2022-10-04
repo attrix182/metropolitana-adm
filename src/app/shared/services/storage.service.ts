@@ -39,7 +39,15 @@ export class StorageService {
       );
   }
   GetByParameter(collection: string, parametro: string, value: any) {
-    return this.cloudFireStore.collection<any>(collection, (ref) => ref.where(parametro, '==', value));
+    return this.cloudFireStore.collection<any>(collection, (ref) => ref.where(parametro, '==', value)).snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data: any = a.payload.doc.data();
+          data.id = a.payload.doc.id;
+          return data;
+        })
+      )
+    );
   }
 
   Update(id: string, collectionName: string, data: any) {
