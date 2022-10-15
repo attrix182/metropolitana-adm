@@ -31,6 +31,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { BrowserModule } from '@angular/platform-browser';
+import { AdminListadoComponent } from './sections/admin-listado/admin-listado.component';
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.dots
 };
@@ -58,7 +59,8 @@ registerLocaleData(localeEs);
     AdminGrillaAltaComponent,
     AdminGrillaAltaConfirmacionComponent,
     AdminGrillaListadoComponent,
-    AdminGrillaCalendarioComponent
+    AdminGrillaCalendarioComponent,
+    AdminListadoComponent
   ],
   imports: [
     CommonModule,

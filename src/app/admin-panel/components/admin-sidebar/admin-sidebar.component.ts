@@ -54,6 +54,11 @@ export class AdminSidebarComponent implements AfterViewInit {
         name:'Grilla',
         icon: 'fas fa-calendar',
         link: 'admin-grilla'
+      },
+      {
+        name:'Listado',
+        icon: 'fas fa-calendar',
+        link: 'admin-listado'
       }
 
     ]

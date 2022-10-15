@@ -196,7 +196,7 @@ export class AdminGrillaCalendarioComponent {
         start: horarioInicio,
         end: horarioFin,
         color: color,
-        draggable: true,
+        draggable: false,
         resizable: {
           beforeStart: true,
           afterEnd: true
