@@ -22,10 +22,21 @@ export class AdminHorariosComponent implements OnInit {
 
   getHorarios() {
     this.storage.GetAll('horarios').subscribe((data) => {
-      this.orderAsc(data);
+      this.sortHorarios(data);
       this.horarios = data;
     });
   }
 
-  orderAsc(horarios: Horario[]) {}
+  sortHorarios(data: Horario[]) {
+    data.sort((ha, hb) => {
+      if (ha.horarioInicio > hb.horarioInicio) {
+        return 1;
+      }
+      if (ha.horarioInicio < hb.horarioInicio) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+  }
 }

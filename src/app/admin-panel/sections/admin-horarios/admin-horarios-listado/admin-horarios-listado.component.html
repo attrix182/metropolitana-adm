@@ -3,21 +3,14 @@
 
   <div class="datepicker-container" *ngIf="vista == 'grilla'">
     <ngb-datepicker (ngModelChange)="onDateChange($event)" class="custom-datepicker" #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
-<!-- 
-     -->
-    <!--  <div *ngFor="let dia of dias">
-      <button class="btn btn-sm btn-danger btn-dia" [id]="dia" type="button" (click)="seleccionarDia(dia)">
-        {{ dia }}
-      </button>
-    </div> -->
   </div>
 
   <div *ngFor="let item of horarios">
     <div class="card mt-2 mb-2 p-2" *ngIf="vista !== 'grilla'">
       <div class="card-actions">
         <div class="card-name">{{ item.horarioInicio }} - {{ item.horarioFin }}</div>
-        <button class="btn btn-info" (click)="updateHorario(item)"><i class="fa fa-pen"></i></button>
-        <button class="btn btn-danger" (click)="delete(item)"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-info" (click)="updateHorario(item)"><em class="fa fa-pen"></em></button>
+        <button class="btn btn-danger" (click)="delete(item)"><em class="fa fa-trash"></em></button>
       </div>
     </div>
 

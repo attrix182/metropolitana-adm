@@ -68,9 +68,23 @@ export class AdminHorariosListadoComponent implements OnInit {
   ngOnInit(): void {
     if (this.vista == 'grilla') {
       this.storageSVC.GetAll('horarios').subscribe((data) => {
+        this.sortHorarios(data)
         this.horarios = data;
       });
     }
+  }
+
+  sortHorarios(data: Horario[]) {
+    data.sort((ha, hb) => {
+      if (ha.horarioInicio > hb.horarioInicio) {
+        return 1;
+      }
+      if (ha.horarioInicio < hb.horarioInicio) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
   }
 
   onDateChange(newValue) {
