@@ -16,10 +16,13 @@ export class AdminPuntosListadoComponent implements OnInit {
   @Output() setPunto = new EventEmitter<Punto>();
   filtroSeteado: boolean;
   puntoSeleccionado: Punto;
-  turno:Turno;
+  turno: Turno;
 
-  constructor(private storageSVC: StorageService, private alertSVC: AlertService, private grillaSVC: AdminGrillaService) {
-  }
+  constructor(
+    private storageSVC: StorageService,
+    private alertSVC: AlertService,
+    private grillaSVC: AdminGrillaService
+  ) {}
 
   ngOnInit(): void {
     if (this.vista == 'grilla') {

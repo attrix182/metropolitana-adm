@@ -1,6 +1,5 @@
 <section class="container bg-white mt-4 p-4 mb-4 rounded listado">
   <div class="filtros" *ngIf="vista !== 'grilla'">
-    <!-- <button class="btn btn-dark" id="todos" (click)="setFilter('todos')">Todos</button> -->
     <button class="btn btn-dark" id="activos" (click)="setFilterActivos()">Activos</button>
     <button class="btn btn-dark" id="inactivos" (click)="setFilterInactivos()">Inactivos</button>
   </div>
@@ -12,8 +11,8 @@
         <div class="card-name">
           {{ item.nombre }}
         </div>
-        <button class="btn btn-info" (click)="update(item)"><i class="fa fa-pen"></i></button>
-        <button class="btn btn-danger" (click)="delete(item)"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-info" (click)="update(item)"><em class="fa fa-pen"></em></button>
+        <button class="btn btn-danger" (click)="delete(item)"><em class="fa fa-trash"></em></button>
       </div>
     </div>
  

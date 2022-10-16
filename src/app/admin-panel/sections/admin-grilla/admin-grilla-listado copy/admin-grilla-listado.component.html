@@ -1,0 +1,42 @@
+<div class="container bg-white mt-4 p-4 mb-4 rounded">
+  <input
+    type="text"
+    placeholder="Buscador inteligente..."
+    class="form-control mb-2"
+  />
+
+  <table class="table table-hover text-center">
+    <thead>
+      <tr>
+        <th>Horario</th>
+        <th>Punto</th>
+        <th>Hermanos</th>
+        <th class="table-actions-responsive">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="turnos">
+      <tr *ngFor="let turno of turnos">
+        <td>
+          {{ turno.horario.dia.day }}/{{ turno.horario.dia.month }} - {{ turno.horario.horario.horarioInicio }} a
+          {{ turno.horario.horario.horarioFin }}
+        </td>
+        <td>{{ turno.punto.nombre }}</td>
+        <td>
+          <div *ngFor="let h of turno.hermanos">
+            <ul>
+              <li class="text-left">{{ h.nombre }} {{ h.apellido }}</li>
+            </ul>
+          </div>
+        </td>
+        <td class="table-actions-responsive">
+          <div class="table-actions">
+            <button class="btn btn-danger" (click)="delete(turno)"><em class="fa fa-trash"></em></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-2 mb-2 p-2 loading-turnos" *ngIf="!turnos">
+    <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
+  </div>
+</div>

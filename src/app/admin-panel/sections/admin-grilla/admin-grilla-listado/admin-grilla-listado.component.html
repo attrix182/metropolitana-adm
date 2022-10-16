@@ -1,35 +1,59 @@
 <div class="container bg-white mt-4 p-4 mb-4 rounded">
-    
-    <input
-    [(ngModel)]="searchParam"
-    (ngModelChange)="hacerBusqueda()"
-    type="text"
-    placeholder="Buscador inteligente..."
-    class="form-control mb-2"
-  />
+  <form [formGroup]="formGroup" class="row">
+    <!-- Punto -->
+    <div class="col">
+      <div class="form-group">
+        <label for="my-select">Punto</label>
+        <select id="my-select" class="form-control" formControlName="punto">
+          <option disabled [selected]="true">Punto</option>
+          <option *ngFor="let op of puntos" [ngValue]="op">{{ op.nombre }}</option>
+        </select>
+      </div>
+    </div>
+    <!-- Horario -->
+    <div class="col" *ngIf="false">
+      <div class="form-group">
+        <label for="my-select">Horario</label>
+        <select id="my-select" class="form-control" formControlName="horario">
+          <option disabled [selected]="true">Horario</option>
+          <option *ngFor="let opt of horarios" [ngValue]="opt">{{ opt.turno }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="my-select">Buscar</label>
+        <button (click)="buscarTurno()" [disabled]="formGroup.invalid" class="btn btn-primary btn-block">
+          <em class="fa fa-search"></em>
+        </button>
+      </div>
 
-    <table class="table table-hover text-center" >
-        <thead>
-          <tr>
-            <th>Horario</th>
-            <th>Punto</th>
-            <th>Hermanos</th>
-            <th class="table-actions-responsive">Acciones</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="turnos">
-          <tr *ngFor="let turno of turnos">
-            <td>  {{ turno.horario.dia.day }}/{{ turno.horario.dia.month }} - {{ turno.horario.horario.horarioInicio }} a {{ turno.horario.horario.horarioFin }}</td>
-            <td>{{ turno.punto.nombre }}</td>
-            <td><div *ngFor="let h of turno.hermanos"><li style="text-align:center;">{{h.nombre}} {{h.apellido}}</li></div></td>
-            <td class="table-actions-responsive">  <div class="table-actions">
-              <!-- <button class="btn btn-info" ><i class="fa fa-pen"></i></button> -->
-              <button class="btn btn-danger" (click)="delete(turno)"><i class="fa fa-trash"></i></button>
-            </div></td>
-          </tr>
-        </tbody>
-      </table>
       <div class="mt-2 mb-2 p-2 loading-turnos" *ngIf="!turnos">
         <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
       </div>
+    </div>
+  </form>
+</div>
+
+<div class="container bg-white mt-4 p-4 mb-4 rounded" *ngFor="let turno of turnos">
+  <section class="text-right">
+    <div>{{ turno.horario.dia.day }}/{{ turno.horario.dia.month }}/{{ turno.horario.dia.year }}</div>
+  </section>
+
+  <section class="text-center">
+    <h4 class="mb-3">Punto: {{ turno.punto.nombre }}</h4>
+
+    <div>
+      De {{ turno.horario.horario.horarioInicio }}, hasta
+      {{ turno.horario.horario.horarioFin }}
+
+      <br />
+      Hermanos:
+      <div *ngFor="let h of turno.hermanos">{{ h.nombre }} {{ h.apellido }}</div>
+    </div>
+  </section>
+</div>
+
+<div class="container text-center bg-white mt-4 p-4 mb-4 rounded" *ngIf="turnos.length == 0">
+  <h4>No hay turnos en ese punto</h4>
 </div>

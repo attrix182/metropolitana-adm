@@ -42,9 +42,9 @@ export class AdminGrillaCalendarioComponent {
 
   formInforme: FormGroup;
   showForm: boolean = false;
-  loading:boolean = false;
-  informeCargado:any = null;
-  informes:any = undefined;
+  loading: boolean = false;
+  informeCargado: any = null;
+  informes: any = undefined;
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -70,32 +70,31 @@ export class AdminGrillaCalendarioComponent {
   ) {}
 
   initForm() {
-
     this.formInforme = this.fb.group({
       publicaciones: ['', [Validators.required]],
-      videos: ['', [Validators.required]],
+      videos: ['', [Validators.required]]
     });
   }
 
-  editInforme(){
+  editInforme() {
     this.showForm = true;
   }
 
-  getInformeById(){
-   this.storageSVC.GetByParameter('informes','id',this.turnoFormateado.id).subscribe( (informe) =>{
-     informe ? this.informeCargado = informe[0] : this.informeCargado = false;
-   })
+  getInformeById() {
+    this.storageSVC.GetByParameter('informes', 'id', this.turnoFormateado.id).subscribe((informe) => {
+      informe ? (this.informeCargado = informe[0]) : (this.informeCargado = false);
+    });
   }
 
-  saveInforme(){
+  saveInforme() {
     this.loading = true;
-    let informe = this.formInforme.value
-    informe.turno = this.turnoFormateado
-    informe.id = this.turnoFormateado.id
-    this.storageSVC.InsertCustomID('informes', informe.id, informe).then( ()=>{
+    let informe = this.formInforme.value;
+    informe.turno = this.turnoFormateado;
+    informe.id = this.turnoFormateado.id;
+    this.storageSVC.InsertCustomID('informes', informe.id, informe).then(() => {
       this.loading = false;
-      this.alertSvc.alertCenter('success', '¡Informe guardado!')
-    } )
+      this.alertSvc.alertCenter('success', '¡Informe guardado!');
+    });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -128,7 +127,7 @@ export class AdminGrillaCalendarioComponent {
     let id = this.modalData.event.id;
     this.getById(id);
     this.modal.open(this.modalContent, { size: 'lg' });
-    this.getInformeById()
+    this.getInformeById();
   }
 
   setView(view: CalendarView) {
@@ -145,7 +144,7 @@ export class AdminGrillaCalendarioComponent {
     this.initForm();
   }
 
-  getInformes(){
+  getInformes() {
     this.storageSVC.GetAll('informes').subscribe((informes) => {
       this.informes = informes;
       this.formatHorarios();
@@ -155,7 +154,7 @@ export class AdminGrillaCalendarioComponent {
   getTurnos() {
     this.storageSVC.GetAll('turnos').subscribe((turnos) => {
       this.turnos = turnos;
-      this.formatHorarios();
+    
     });
   }
 
@@ -174,14 +173,13 @@ export class AdminGrillaCalendarioComponent {
       );
       if (diaTurno < hoy) {
         this.turnos.find((t) => t == turno).past = true;
-        if(this.informes.find((x:any)=> x.turno.id == turno.id) ){
+        if (this.informes.find((x: any) => x.turno.id == turno.id)) {
           this.addEvent(turno, horarioInicio, horarioFin, colors.yellow);
-        }else{
+        } else {
           this.addEvent(turno, horarioInicio, horarioFin, colors.green);
         }
-        
       } else {
-        this.addEvent(turno, horarioInicio, horarioFin, colors.red);
+      this.addEvent(turno, horarioInicio, horarioFin, colors.red);
       }
     });
     this.loaded = true;

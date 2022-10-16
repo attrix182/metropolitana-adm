@@ -19,7 +19,6 @@ import { AdminHermanosModalDisponibilidadComponent } from './sections/admin-herm
 import { AdminHorariosAltaComponent } from './sections/admin-horarios/admin-horarios-alta/admin-horarios-alta.component';
 import { AdminHorariosListadoComponent } from './sections/admin-horarios/admin-horarios-listado/admin-horarios-listado.component';
 import { AdminGrillaAltaComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta.component';
-
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminGrillaAltaConfirmacionComponent } from './sections/admin-grilla/admin-grilla-alta/admin-grilla-alta-confirmacion/admin-grilla-alta-confirmacion.component';
@@ -30,8 +29,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
-import { BrowserModule } from '@angular/platform-browser';
-import { AdminListadoComponent } from './sections/admin-listado/admin-listado.component';
+
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.dots
 };
@@ -59,8 +57,7 @@ registerLocaleData(localeEs);
     AdminGrillaAltaComponent,
     AdminGrillaAltaConfirmacionComponent,
     AdminGrillaListadoComponent,
-    AdminGrillaCalendarioComponent,
-    AdminListadoComponent
+    AdminGrillaCalendarioComponent
   ],
   imports: [
     CommonModule,
