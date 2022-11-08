@@ -1,59 +1,76 @@
-<div class="container bg-white mt-4 p-4 mb-4 rounded">
-  <form [formGroup]="formGroup" class="row">
-    <!-- Punto -->
-    <div class="col">
-      <div class="form-group">
-        <label for="my-select">Punto</label>
-        <select id="my-select" class="form-control" formControlName="punto">
-          <option disabled [selected]="true">Punto</option>
-          <option *ngFor="let op of puntos" [ngValue]="op">{{ op.nombre }}</option>
-        </select>
-      </div>
-    </div>
-    <!-- Horario -->
-    <div class="col" *ngIf="false">
-      <div class="form-group">
-        <label for="my-select">Horario</label>
-        <select id="my-select" class="form-control" formControlName="horario">
-          <option disabled [selected]="true">Horario</option>
-          <option *ngFor="let opt of horarios" [ngValue]="opt">{{ opt.turno }}</option>
-        </select>
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label for="my-select">Buscar</label>
-        <button (click)="buscarTurno()" [disabled]="formGroup.invalid" class="btn btn-primary btn-block">
-          <em class="fa fa-search"></em>
-        </button>
-      </div>
+<button class="btn btn-info mt-3 ml-3" (click)="toggleShow()">
+  <div *ngIf="showFormAlta">Ver turnos</div>
+  <div *ngIf="!showFormAlta">Alta de turno</div>
+</button>
 
-      <div class="mt-2 mb-2 p-2 loading-turnos" *ngIf="!turnos">
-        <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
-      </div>
-    </div>
-  </form>
+<met-admin-grilla-alta *ngIf="showFormAlta" id="formAlta"></met-admin-grilla-alta>
+
+<div class="container text-center bg-white mt-4 p-4 mb-4 mt-4 rounded" *ngIf="showFormAlta" id="formAlta-warning">
+  <h5>Para utilizar esta funcion es necesaria una pantalla mas grande</h5>
 </div>
 
-<div class="container bg-white mt-4 p-4 mb-4 rounded" *ngFor="let turno of turnos">
-  <section class="text-right">
-    <div>{{ turno.horario.dia.day }}/{{ turno.horario.dia.month }}/{{ turno.horario.dia.year }}</div>
-  </section>
+<section *ngIf="!showFormAlta" >
+  <div class="container bg-white mt-4 p-4 mb-4 rounded">
+    <form [formGroup]="formGroup" class="row">
+      <!-- Punto -->
+      <div class="col">
+        <div class="form-group">
+          <label for="my-select">Punto</label>
+          <select id="my-select" class="form-control" formControlName="punto">
+            <option [value]="'TODOS'" [selected]="true">Todos</option>
+            <option *ngFor="let op of puntos" [ngValue]="op">{{ op.nombre }}</option>
+          </select>
+        </div>
+      </div>
+      <!-- Horario -->
+      <div class="col" *ngIf="false">
+        <div class="form-group">
+          <label for="my-select">Horario</label>
+          <select id="my-select" class="form-control" formControlName="horario">
+            <option disabled [selected]="true">Horario</option>
+            <option *ngFor="let opt of horarios" [ngValue]="opt">{{ opt.turno }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="my-select">Buscar</label>
+          <button (click)="buscarTurno()" [disabled]="formGroup.invalid" class="btn btn-primary btn-block">
+            <em class="fa fa-search"></em>
+          </button>
+        </div>
 
-  <section class="text-center">
-    <h4 class="mb-3">Punto: {{ turno.punto.nombre }}</h4>
+        <div class="mt-2 mb-2 p-2 loading-turnos" *ngIf="!turnos">
+          <div class="spinner-border text-primary mt-1 mb-1" role="status"></div>
+        </div>
+      </div>
+    </form>
+  </div>
 
-    <div>
-      De {{ turno.horario.horario.horarioInicio }}, hasta
-      {{ turno.horario.horario.horarioFin }}
+  <div class="container bg-white mt-4 p-4 mb-4 rounded" *ngFor="let turno of turnos">
+    <section class="text-right" *ngIf="!turno.horario.turnoFijo">
+      <div>{{ turno.horario.dia.day }}/{{ turno.horario.dia.month }}/{{ turno.horario.dia.year }}</div>
+    </section>
 
-      <br />
-      Hermanos:
-      <div *ngFor="let h of turno.hermanos">{{ h.nombre }} {{ h.apellido }}</div>
-    </div>
-  </section>
-</div>
+    <section class="text-right" *ngIf="turno.horario.turnoFijo">
+      <div>{{ turno.horario.dia.name | titlecase }}</div>
+    </section>
 
-<div class="container text-center bg-white mt-4 p-4 mb-4 rounded" *ngIf="turnos.length == 0">
-  <h4>No hay turnos en ese punto</h4>
-</div>
+    <section class="text-center">
+      <h4 class="mb-3">Punto: {{ turno.punto.nombre }}</h4>
+
+      <div>
+        De {{ turno.horario.horario.horarioInicio }}, hasta
+        {{ turno.horario.horario.horarioFin }}
+
+        <br />
+        Hermanos:
+        <div *ngFor="let h of turno.hermanos">{{ h.nombre }} {{ h.apellido }}</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="container text-center bg-white mt-4 p-4 mb-4 rounded" *ngIf="turnos?.length == 0">
+    <h4>No hay turnos en ese punto</h4>
+  </div>
+</section>

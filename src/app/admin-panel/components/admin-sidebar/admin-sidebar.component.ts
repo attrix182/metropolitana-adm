@@ -50,18 +50,25 @@ export class AdminSidebarComponent implements AfterViewInit {
         icon: 'fas fa-location-dot',
         link: 'admin-puntos'
       },
-      {
-        name:'Grilla',
-        icon: 'fas fa-calendar',
-        link: 'admin-grilla'
-      },
+   
       {
         name:'Listado',
         icon: 'fas fa-calendar',
         link: 'admin-listado'
+      },
+
+      {
+        name:'Informes',
+        icon: 'fas fa-pen',
+        link: 'admin-informes'
       }
 
     ]
+   /*  {
+      name:'Grilla',
+      icon: 'fas fa-calendar',
+      link: 'admin-grilla'
+    }, */
   }
 
   logout(){

@@ -25,9 +25,8 @@ export class AdminGrillaService {
   private hermanos$: Subject<Hermano[]>;
 
   actualizarHorario$: Subject<any>;
-  view:string = ''
+  view: string = '';
   private view$: Subject<string>;
-
 
   constructor() {
     this.view = '';
@@ -53,7 +52,7 @@ export class AdminGrillaService {
     this.actualizarHorario$ = new Subject();
   }
 
-  setView(viewType:string) {
+  setView(viewType: string) {
     if (!viewType) return;
     this.view = viewType;
     this.view$.next(viewType);
@@ -62,7 +61,6 @@ export class AdminGrillaService {
   getView$(): Observable<string> {
     return this.view$.asObservable();
   }
-
 
   setPunto(punto: Punto) {
     if (!punto) return;
@@ -126,7 +124,7 @@ export class AdminGrillaService {
     return this.actualizarHorario$.asObservable();
   }
 
-  resetAll(){
+  resetAll() {
     this.hermanos = [];
     this.horario = null;
     this.punto = null;

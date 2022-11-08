@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
-import { Dias, Horarios } from 'src/app/models/hermano.model';
+import { Dias } from 'src/app/models/hermano.model';
 import { Horario } from 'src/app/models/horario.model';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AdminGrillaService } from '../../admin-grilla/admin-grilla.service';
-import { NgbDateStruct, NgbCalendar, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 const I18N_VALUES = {
   es: {
@@ -54,6 +54,7 @@ export class AdminHorariosListadoComponent implements OnInit {
   horarioSeleccionado: Horario;
   diaSeleccionado: Dias;
   filtroSeteado: boolean;
+  turnoFijo: boolean = false;
   dias: string[] = ['L', 'Ma', 'Mi', 'J', 'V', 'S', 'D'];
   model: NgbDateStruct;
   date: { year: number; month: number };
@@ -61,14 +62,13 @@ export class AdminHorariosListadoComponent implements OnInit {
   constructor(
     private storageSVC: StorageService,
     private alertSVC: AlertService,
-    private grillaSVC: AdminGrillaService,
+    private grillaSVC: AdminGrillaService
   ) {}
 
-  
   ngOnInit(): void {
     if (this.vista == 'grilla') {
       this.storageSVC.GetAll('horarios').subscribe((data) => {
-        this.sortHorarios(data)
+        this.sortHorarios(data);
         this.horarios = data;
       });
     }
@@ -82,25 +82,29 @@ export class AdminHorariosListadoComponent implements OnInit {
       if (ha.horarioInicio < hb.horarioInicio) {
         return -1;
       }
-      // a must be equal to b
       return 0;
     });
   }
 
   onDateChange(newValue) {
     this.removeSelected();
-}
-
-
+  }
 
   seleccionar(item) {
     this.removeSelected();
     this.horarioSeleccionado = item;
     let cardHtml = document.getElementById(item.id) as HTMLElement;
     cardHtml.classList.toggle('card-selected');
- 
-    let dia = { year: this.date.year, month: this.date.month, day: this.model.day };
-    this.grillaSVC.setHorario({ dia: dia, horario: this.horarioSeleccionado });
+
+    let  dia:any = { year: this.date.year, month: this.date.month, day: this.model.day };
+
+    if(this.turnoFijo){
+    
+      var auxDia = new Date(`${this.date.month}/${this.model.day}/${this.date.year}`).getDay() - 1;
+      dia.name = Dias[auxDia];
+    }
+
+    this.grillaSVC.setHorario({ dia: dia, horario: this.horarioSeleccionado, turnoFijo:this.turnoFijo  });
   }
 
   removeSelected() {

@@ -1,17 +1,16 @@
 <section class="container bg-white mt-4 p-4 mb-4 rounded">
   <div class="text-center mb-4">
     <h4>Crear un nuevo turno</h4>
-
   </div>
 
-  <ng-wizard [config]="config" (stepChanged)="stepChanged($event)" style="display: flex; justify-content:center;">
+  <ng-wizard [config]="config" (stepChanged)="stepChanged($event)" style="display: flex; justify-content: center">
     <ng-wizard-step
       [title]="'Punto'"
       [description]="'Punto de predicación'"
       [canEnter]="isValidTypeBoolean"
       [canExit]="isValidFunctionReturnsBoolean.bind(this)"
     >
-    <met-admin-puntos-listado [vista]="'grilla'"></met-admin-puntos-listado>
+      <met-admin-puntos-listado [vista]="'grilla'"></met-admin-puntos-listado>
     </ng-wizard-step>
 
     <ng-wizard-step
@@ -20,7 +19,7 @@
       [canEnter]="isValidTypeBoolean"
       [canExit]="isValidFunctionReturnsBoolean.bind(this)"
     >
- <met-admin-horarios-listado [vista]="'grilla'"></met-admin-horarios-listado>
+      <met-admin-horarios-listado [vista]="'grilla'"></met-admin-horarios-listado>
     </ng-wizard-step>
 
     <ng-wizard-step
@@ -29,7 +28,7 @@
       [canEnter]="isValidTypeBoolean"
       [canExit]="isValidFunctionReturnsBoolean.bind(this)"
     >
-    <met-admin-hermanos-listado [vista]="'grilla'"></met-admin-hermanos-listado>
+      <met-admin-hermanos-listado [vista]="'grilla'"></met-admin-hermanos-listado>
     </ng-wizard-step>
 
     <ng-wizard-step
@@ -38,7 +37,7 @@
       [canEnter]="isValidTypeBoolean"
       [canExit]="isValidFunctionReturnsBoolean.bind(this)"
     >
-    <met-admin-grilla-alta-confirmacion></met-admin-grilla-alta-confirmacion>
+      <met-admin-grilla-alta-confirmacion></met-admin-grilla-alta-confirmacion>
     </ng-wizard-step>
   </ng-wizard>
 </section>

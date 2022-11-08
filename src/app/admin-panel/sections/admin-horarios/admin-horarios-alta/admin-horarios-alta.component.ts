@@ -28,8 +28,13 @@ export class AdminHorariosAltaComponent extends FormValidator implements OnInit 
     this.setHorarios();
   }
 
-  setHorarios(){
-this.horarios = [{key: 'M', value: 'Mañana'}, {key: 'MD', value:'Mediodia'}, {key: 'T', value: 'Tarde'}, {key: 'N', value: 'Noche'}]
+  setHorarios() {
+    this.horarios = [
+      { key: 'M', value: 'Mañana' },
+      { key: 'MD', value: 'Mediodia' },
+      { key: 'T', value: 'Tarde' },
+      { key: 'N', value: 'Noche' }
+    ];
   }
 
   ngOnChanges() {
@@ -59,8 +64,7 @@ this.horarios = [{key: 'M', value: 'Mañana'}, {key: 'MD', value:'Mediodia'}, {k
   }
 
   saveHorario() {
-
-     if (this.loading) return;
+    if (this.loading) return;
     this.loading = true;
     if (this.validarExistencia()) {
       this.alertSVC.alertTop('error', 'Ese horario ya existe');
@@ -80,7 +84,7 @@ this.horarios = [{key: 'M', value: 'Mañana'}, {key: 'MD', value:'Mediodia'}, {k
           this.loading = false;
         });
       }
-    } 
+    }
   }
 
   validarExistencia(): boolean {
@@ -97,7 +101,7 @@ this.horarios = [{key: 'M', value: 'Mañana'}, {key: 'MD', value:'Mediodia'}, {k
     this.formGroup = this.FB.group({
       horarioInicio: ['', Validators.required],
       horarioFin: ['', Validators.required],
-      turno: ['', Validators.required],
+      turno: ['', Validators.required]
     });
   }
 

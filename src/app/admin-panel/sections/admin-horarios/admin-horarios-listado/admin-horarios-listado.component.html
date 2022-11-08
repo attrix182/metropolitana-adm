@@ -2,7 +2,15 @@
   <div class="filtros">Horarios</div>
 
   <div class="datepicker-container" *ngIf="vista == 'grilla'">
+    
     <ngb-datepicker (ngModelChange)="onDateChange($event)" class="custom-datepicker" #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+ 
+  </div>
+  <div class="container text-center mb-3 mt-3" *ngIf="vista == 'grilla'">
+    <label class="form-check-label">
+      Turno fijo
+      <input [(ngModel)]="turnoFijo" type="checkbox" class="form-control" name="" id="" value="checkedValue">
+    </label>
   </div>
 
   <div *ngFor="let item of horarios">

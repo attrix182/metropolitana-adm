@@ -19,6 +19,7 @@ export class AdminGrillaListadoComponent implements OnInit {
   turnos: Turno[];
   puntos: Punto[];
   horarios: Horario[];
+  showFormAlta: boolean = false;
 
   constructor(private storageSVC: StorageService, private alertSvc: AlertService, private fb: FormBuilder) {}
 
@@ -27,6 +28,10 @@ export class AdminGrillaListadoComponent implements OnInit {
     this.getPuntos();
     this.getHorarios();
     this.initForm();
+  }
+
+  toggleShow() {
+    this.showFormAlta = !this.showFormAlta;
   }
 
   initForm() {
@@ -54,6 +59,7 @@ export class AdminGrillaListadoComponent implements OnInit {
     console.log(this.formGroup.value);
     let punto = this.formGroup.value.punto
     if(punto){
+      if(punto == 'TODOS') {this.getTurnos(); return;}
       this.searchByParameters('punto', punto)
     }
   

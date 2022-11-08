@@ -25,6 +25,10 @@
     align-items: center;
     width: 100%;
   }
+
+  .text-right{
+    font-size: 1.1em;
+  }
   
   @media screen and (max-width: 541px) {
     .table-actions-responsive {
@@ -32,4 +36,19 @@
       display: none;
     }
   }
+
+  @media screen and (max-width: 890px) {
+    #formAlta {
+      visibility: hidden;
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 890px) {
+    #formAlta-warning {
+      visibility: hidden;
+      display: none;
+    }
+  }
+  
   

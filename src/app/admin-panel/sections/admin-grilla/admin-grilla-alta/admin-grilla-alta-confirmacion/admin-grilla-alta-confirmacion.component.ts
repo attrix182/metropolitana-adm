@@ -41,6 +41,7 @@ export class AdminGrillaAltaConfirmacionComponent implements OnInit {
 
   publicarTurno() {
     this.loading = true;
+    
     this.storageSVC
       .Insert('turnos', this.turno)
       .then(() => {
@@ -60,6 +61,7 @@ export class AdminGrillaAltaConfirmacionComponent implements OnInit {
   confeccionarTurno() {
     this.grillaSVC.getTurno$().subscribe((response) => {
       this.turno = response;
+      console.log(response)
       this.setShow(response);
     });
   }
