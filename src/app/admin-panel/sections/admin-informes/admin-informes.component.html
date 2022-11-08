@@ -1,66 +1,74 @@
 <div class="container bg-white mt-4 p-4 mb-4 rounded">
-    <div [formGroup]="formGroup">
-      <div class="row">
-        <div class="col-md-12 text-center"><h4>Carga de informe de actividad</h4></div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="nombre">Turno</label>
-            <input
-              type="text"
-              [class]="isValidField('nombre')"
-              class="form-control"
-              formControlName="nombre"
-              placeholder="Nombre"
-            />
-            <span *ngIf="debeMostrarError('nombre')" class="invalid-feedback">
-              {{ obtenerTextoError('nombre') }}
-            </span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="direccion">Direccion</label>
-            <input
-              type="text"
-              class="form-control"
-              [class]="isValidField('direccion')"
-              id="direccion"
-              formControlName="direccion"
-              placeholder="Direccion"
-            />
-            <span *ngIf="debeMostrarError('direccion')" class="invalid-feedback">
-              {{ obtenerTextoError('direccion') }}
-            </span>
-          </div>
-        </div>
-  
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea
-              type="text"
-              class="form-control"
-              [class]="isValidField('descripcion')"
-              id="descripcion"
-              formControlName="descripcion"
-              placeholder="Descripcion"
-            ></textarea>
-            <span *ngIf="debeMostrarError('descripcion')" class="invalid-feedback">
-              {{ obtenerTextoError('descripcion') }}
-            </span>
-          </div>
+  <div [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-md-12 text-center"><h4>Carga de informe de actividad</h4></div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="my-select">Punto</label>
+          <select id="my-select" class="form-control" formControlName="punto">
+            <option *ngFor="let op of puntos" [ngValue]="op">{{ op.nombre }}</option>
+          </select>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12 text-center mt-4">
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="saveInforme()">
-            <div *ngIf="!loading">Guardar</div>
-            <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
-          </button>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="my-select">Horario</label>
+          <select id="my-select" class="form-control" formControlName="horario">
+            <option *ngFor="let op of horarios" [ngValue]="op">{{ op.turno }} - {{ op.horarioInicio }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input type="date" class="form-control" [class]="isValidField('fecha')" id="fecha" formControlName="fecha" />
+          <span *ngIf="debeMostrarError('fecha')" class="invalid-feedback">
+            {{ obtenerTextoError('fecha') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Publicaciones</label>
+          <input
+            formControlName="publicaciones"
+            placeholder="Publicaciones"
+            class="form-control"
+            type="number"
+            [class]="isValidField('fecha')"
+          />
+          <span *ngIf="debeMostrarError('publicaciones')" class="invalid-feedback">
+            {{ obtenerTextoError('publicaciones') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+            <label for="">Videos</label>
+          <input
+          formControlName="videos" placeholder="Videos" class="form-control" type="number"
+
+            [class]="isValidField('fecha')"
+          />
+          <span *ngIf="debeMostrarError('videos')" class="invalid-feedback">
+            {{ obtenerTextoError('videos') }}
+          </span>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!formGroup.valid" (click)="saveInforme()">
+          <div *ngIf="!loading">Guardar</div>
+          <div *ngIf="loading" class="spinner-border btn-block text-dark" role="status"></div>
+        </button>
+      </div>
+    </div>
   </div>
-  
+</div>

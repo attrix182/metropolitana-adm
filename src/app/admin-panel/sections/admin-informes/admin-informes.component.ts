@@ -4,6 +4,8 @@ import { FormValidator } from 'src/app/shared/form-validator';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/shared/services/alert.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { Horario } from 'src/app/models/horario.model';
+import { Punto } from 'src/app/models/puntos.model';
 @Component({
   selector: 'met-admin-informes',
   templateUrl: './admin-informes.component.html',
@@ -12,7 +14,8 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 export class AdminInformesComponent  extends FormValidator implements OnInit {
   public formGroup: FormGroup;
   loading:boolean = false;
-
+  puntos: Punto[];
+  horarios: Horario[];
 
   constructor(private FB: FormBuilder, private alertSVC: AlertService, private storageSVC: StorageService) {
     super()
@@ -20,7 +23,22 @@ export class AdminInformesComponent  extends FormValidator implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.getPuntos()
+    this.getHorarios();
   }
+
+  getPuntos() {
+    this.storageSVC.GetAll('puntos').subscribe((puntos) => {
+      this.puntos = puntos;
+    });
+  }
+
+  getHorarios() {
+    this.storageSVC.GetAll('horarios').subscribe((horarios) => {
+      this.horarios = horarios;
+    });
+  }
+
 
   saveInforme(){
     this.loading = true;
@@ -31,9 +49,11 @@ export class AdminInformesComponent  extends FormValidator implements OnInit {
 
   initForm(){
     this.formGroup = this.FB.group({
-      nombre: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
-      descripcion: ['', []],
+      punto: ['', [Validators.required]],
+      horario: ['', [Validators.required]],
+      fecha: ['', []],
+      publicaciones: ['', []],
+      videos: ['', []],
     });
   }
 
