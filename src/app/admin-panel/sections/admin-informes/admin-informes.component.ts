@@ -48,7 +48,7 @@ export class AdminInformesComponent extends FormValidator implements OnInit {
     this.storageSVC.GetByParameter('turnos', 'punto', punto).subscribe((data) => {
       this.horarios = [];
       this.turnoToHorario(data);
-      console.log(data);
+
     });
   }
 
@@ -75,7 +75,6 @@ export class AdminInformesComponent extends FormValidator implements OnInit {
     };
     informe.publicaciones = this.formGroup.value.publicaciones;
     informe.videos = this.formGroup.value.videos;
-    console.log(informe);
     this.storageSVC
       .Insert('informes', informe)
       .then((data) => {

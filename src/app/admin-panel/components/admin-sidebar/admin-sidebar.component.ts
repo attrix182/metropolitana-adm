@@ -25,6 +25,12 @@ export class AdminSidebarComponent implements AfterViewInit {
     this.location.replaceState(`/${section}`);
     this.actualSection = section;
     this.changeSection.emit();
+
+    setTimeout(() => {
+    let sidebar = document.querySelector('.sidebar');
+    sidebar.classList.remove('show');
+    }, 250);
+
   }
 
 

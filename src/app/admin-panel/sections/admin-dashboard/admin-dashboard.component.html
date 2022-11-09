@@ -1,37 +1,26 @@
 <section>
-  <div class="container bg-white mt-4 p-4 mb-4 rounded m-4">
-    <h3>Bienvenido hoy es: {{ hoy }}</h3>
+  <div class="container rounded  mt-4 mb-4 rounded">
+    <h4>Bienvenido hoy es: {{diaString | titlecase}} {{ hoy }}</h4>
 
-    <h3 class="m-4">Turnos de hoy:</h3>
+    <h4 class="m-4">Turnos de hoy:</h4>
 
-    <div class="card">
+    <div class="card mt-2" *ngFor="let turno of turnos">
       <div class="card-body">
-        <h4 class="card-title">- Estación nn</h4>
-        <p class="card-text">
-          <span class="badge badge-primary">Hermano 1</span>
-        Pedro Peréz
-        </p>
-        <p>
-          <span class="badge badge-primary">Hermano 1</span>
-          Juan Peréz
+        <h4 class="card-title">- {{ turno.punto.nombre }}</h4>
+        <h5 class="card-title">
+          - Desde {{ turno.horario.horario.horarioInicio }}, hasta {{ turno.horario.horario.horarioFin }}
+        </h5>
+        Hermanos:
+        <p class="card-text ml-3" *ngFor="let h of turno.hermanos">
+          <span class="badge badge-primary">{{ h.nombre }} {{ h.apellido }}</span>
         </p>
       </div>
     </div>
 
-
-    <div class="card mt-3">
-        <div class="card-body">
-          <h4 class="card-title">- Estación nn</h4>
-          <p class="card-text">
-            <span class="badge badge-primary">Hermano 1</span>
-            Fernando Torres
-          </p>
-          <p>
-            <span class="badge badge-primary">Hermano 1</span>
-            Juan Peréz
-          </p>
-        </div>
+    <div class="card" *ngIf="turnos.length == 0">
+      <div class="card-body">
+        <h4 class="card-title">No hay turnos para el dia de hoy</h4>
       </div>
-
+    </div>
   </div>
 </section>
