@@ -101,6 +101,9 @@ export class AdminHorariosListadoComponent implements OnInit {
     if(this.turnoFijo){
     
       var auxDia = new Date(`${this.date.month}/${this.model.day}/${this.date.year}`).getDay() - 1;
+      if (auxDia == -1) {
+        auxDia = 6;
+      }
       dia.name = Dias[auxDia];
     }
 

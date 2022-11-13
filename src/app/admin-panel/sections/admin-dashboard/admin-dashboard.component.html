@@ -17,9 +17,17 @@
       </div>
     </div>
 
-    <div class="card" *ngIf="turnos.length == 0">
+    <div class="card" *ngIf="!loading &&  turnos.length == 0">
       <div class="card-body">
         <h4 class="card-title">No hay turnos para el dia de hoy</h4>
+      </div>
+    </div>
+
+    <div class="card" *ngIf="loading">
+      <div class="card-body text-center">
+        <div class="spinner-border text-primary" role="status">
+
+        </div>
       </div>
     </div>
   </div>

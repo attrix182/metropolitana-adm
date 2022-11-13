@@ -13,11 +13,16 @@ export class AdminDashboardComponent implements OnInit {
   hoyDay: any;
   turnos: Turno[] = [];
   diaString: string;
+  loading:boolean = true;
 
   constructor(private storageSVC: StorageService) {
     this.hoy = new Date().toLocaleDateString();
     this.hoyDay = new Date().getDay();
     this.diaString = Dias[this.hoyDay - 1];
+
+    if (this.hoyDay - 1 == -1) {
+      this.hoyDay = 7;
+    }
   }
 
   ngOnInit(): void {
@@ -25,12 +30,14 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getTurnosHoy() {
+    this.loading = true;
     console.log(Dias[this.hoyDay - 1]);
     this.storageSVC.GetAll('turnos').subscribe((turnos: any) => {
       console.log(turnos);
       this.turnos = turnos.filter((turno: Turno) => {
         return turno.horario.dia.name == Dias[this.hoyDay - 1];
       });
+      this.loading = false;
     });
   }
 }
